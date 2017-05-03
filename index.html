@@ -1,9 +1,155 @@
 <html>
 
 	<head>
-		<script src="lib/edq.js"></script>
+    <meta content="text/html" charset="utf-8">
+    <style>
+      .edq-global-intuitive-address-suggestions {
+        text-align: left;
+        cursor: default;
+        border: 1px solid #ccc;
+        border-top: 0;
+        background: #fff;
+        box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+
+        /* core styles should not be changed */
+        position: absolute;
+        display: none;
+        z-index: 9999;
+        max-height: 254px;
+        overflow: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+      }
+
+      .edq-global-intuitive-address-suggestion {
+        position: relative;
+        padding: 0 .6em;
+        line-height: 23px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 1.02em;
+        color: #333;
+      }
+
+      .edq-global-intuitive-address-suggestion b {
+        font-weight: normal;
+        color: #1f8dd6;
+      }
+
+      .edq-global-intuitive-address-suggestion.selected { background: #f0f0f0; }
+    </style>
 	</head>
 
 	<body>
+    <form>
+      <div>
+        <div>Email address</div>
+        <input id="email" type="email">
+      </div>
+
+      <div>
+        <div>Phone number</div>
+        <input id="phone" type="phone">
+      </div>
+
+      <div>
+        <div>Address Line One</div>
+        <input style="width:100%" id="address-line-one" type="text">
+      </div>
+
+      <div>
+        <div>Address Line Two</div>
+        <input style="width:100%" id="address-line-two" type="text">
+      </div>
+
+    </form>
+
+
+    <script>
+      window.EdqConfig = {
+        DEBUG: true,
+
+        /** Authorization tokens **/
+
+        /* Address */
+        PRO_WEB_AUTH_TOKEN: '46832a16-80c0-43d8-af8e-05b3dde5aaaf',
+        GLOBAL_INTUITIVE_AUTH_TOKEN: '8c9faaa4-a5d2-4036-808d-11208a2e52d8',
+
+        /* Phone */
+        PHONE_VALIDATE_PLUS_AUTH_TOKEN: '1793360f-3d97-451a-81b8-d7e765c48894',
+        GLOBAL_PHONE_VALIDATE_AUTH_TOKEN: '1793360f-3d97-451a-81b8-d7e765c48894',
+
+        /* Email */
+        EMAIL_VALIDATE_AUTH_TOKEN: '1793360f-3d97-451a-81b8-d7e765c48894',
+
+        /** Inline validation options **/
+        LOADING_BASE64_ICON: null,
+        VERIFIED_BASE76_ICON: null,
+        INVALID_BASE64_ICON: null,
+        UNKNOWN_BASE64_ICON: null,
+
+        /* Email validation options */
+        EMAIL_ELEMENT_ID: 'email',
+
+        /* Phone validation options */
+        PHONE_ELEMENT_ID: 'phone',
+
+        /* Global Intuitive Options */
+        GLOBAL_INTUITIVE_SELECTOR: document.getElementById('address-line-one'),
+
+        GLOBAL_INTUITIVE_MAPPING: [
+          {
+            field: document.getElementById('address-line-one'),
+            elements: ['address.addressLine1', 'address.addressLine2'],
+            separator: ', '
+          },
+
+          {
+            field: document.getElementById('address-line-two'),
+            elements: ['address.addressLine2']
+          },
+
+          {
+            field: document.getElementById('address-line-three'),
+            elements: []
+          },
+
+          {
+            field: document.getElementById('city'),
+            elements: [],
+          },
+
+          {
+            field: document.getElementById('locality'),
+            elements: []
+          },
+
+          {
+            field: document.getElementById('postalCode'),
+            elements: []
+          },
+
+          {
+            field: document.getElementById('province'),
+            elements: []
+          },
+
+          {
+            field: document.getElementById('country'),
+            elements: []
+          }
+        ]
+
+      };
+    </script>
+
+    <!-- Pegasus -->
+		<script src="lib/edq.js"></script>
+
+    <!-- Unicorn -->
+    <script src="../unicorn/lib/email-unicorn.js"></script>
+    <script src="../unicorn/lib/phone-unicorn.js"></script>
+    <script src="../unicorn/lib/global-intuitive-unicorn.js"></script>
 	</body>
 </html>

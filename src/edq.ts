@@ -16,52 +16,32 @@
    *
    *  @type {Object}
    */
-  EDQ_CONFIG = window.EdqConfig || {};
+  const EDQ_CONFIG = window.EdqConfig || <EdqConfigObject> {};
 
-	PRO_WEB_AUTH_TOKEN               = EDQ_CONFIG.PRO_WEB_AUTH_TOKEN || '46832a16-80c0-43d8-af8e-05b3dde5aaaf';
-  PHONE_VALIDATE_PLUS_AUTH_TOKEN   = EDQ_CONFIG.PHONE_VALIDATE_PLUS_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
-  GLOBAL_PHONE_VALIDATE_AUTH_TOKEN = EDQ_CONFIG.GLOBAL_PHONE_VALIDATE_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
-  EMAIL_VALIDATE_AUTH_TOKEN        = EDQ_CONFIG.EMAIL_VALIDATE_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
-  GLOBAL_INTUITIVE_AUTH_TOKEN      = EDQ_CONFIG.GLOBAL_INTUITIVE_AUTH_TOKEN || '8c9faaa4-a5d2-4036-808d-11208a2e52d8';
+	const PRO_WEB_AUTH_TOKEN               = EDQ_CONFIG.PRO_WEB_AUTH_TOKEN || '46832a16-80c0-43d8-af8e-05b3dde5aaaf';
+  const PHONE_VALIDATE_PLUS_AUTH_TOKEN   = EDQ_CONFIG.PHONE_VALIDATE_PLUS_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
+  const GLOBAL_PHONE_VALIDATE_AUTH_TOKEN = EDQ_CONFIG.GLOBAL_PHONE_VALIDATE_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
+  const EMAIL_VALIDATE_AUTH_TOKEN        = EDQ_CONFIG.EMAIL_VALIDATE_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
+  const GLOBAL_INTUITIVE_AUTH_TOKEN      = EDQ_CONFIG.GLOBAL_INTUITIVE_AUTH_TOKEN || '8c9faaa4-a5d2-4036-808d-11208a2e52d8';
 
   /** Service for ProWebOnDemand endpoint. Do not change unless you have a proxy to use
    *
    * @name PRO_WEB_SERVICE_URL
    * @type {String}
    */
-	PRO_WEB_SERVICE_URL       = EDQ_CONFIG.PRO_WEB_SERVICE_URL || 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx';
-  PHONE_VALIDATE_PLUS_URL   = 'https://api.experianmarketingservices.com/sync/queryresult/PhoneValidatePlus/1.0/';
-  GLOBAL_PHONE_VALIDATE_URL = 'https://api.experianmarketingservices.com/sync/queryresult/PhoneValidate/3.0/';
-  EMAIL_VALIDATE_URL        = 'https://api.experianmarketingservices.com/sync/queryresult/EmailValidate/1.0/';
-  GLOBAL_INTUITIVE_URL      = 'https://api.edq.com/capture/address/v2';
+	const PRO_WEB_SERVICE_URL       = EDQ_CONFIG.PRO_WEB_SERVICE_URL || 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx';
+  const PHONE_VALIDATE_PLUS_URL   = 'https://api.experianmarketingservices.com/sync/queryresult/PhoneValidatePlus/1.0/';
+  const GLOBAL_PHONE_VALIDATE_URL = 'https://api.experianmarketingservices.com/sync/queryresult/PhoneValidate/3.0/';
+  const EMAIL_VALIDATE_URL        = 'https://api.experianmarketingservices.com/sync/queryresult/EmailValidate/1.0/';
+  const GLOBAL_INTUITIVE_URL      = 'https://api.edq.com/capture/address/v2';
 
   /************************** end Configuration *********************************/
 
 	const root = this;
 	const previousEdq = root.EDQ;
 
-	/** Creates a reference to the EDQ object
-	 *
-   * @name EDQ
-   * @function
-	 * @param {Object} object
-	 * @returns undefined
-	 */
-	let EDQ = function(object) {
-		if (object instanceof EDQ) return object;
-		if (!(this instanceof EDQ)) return new EDQ;
-		this._wrapped = object;
-	}
-
-	if (typeof exports !== 'undefined') {
-		if (typeof module !== 'undefined' && module.exports) {
-			exports = module.exports = EDQ;
-		}
-
-		exports.EDQ = EDQ;
-	} else {
-		root.EDQ = EDQ;
-	}
+  let EDQ = <EDQ>{};
+  root.EDQ = EDQ;
 
 	function _proWebHelpers() {
 
@@ -76,7 +56,7 @@
      */
 		this.doCanSearch = function({country, engineOptions, engineType, layout, callback}) {
 			const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoCanSearch';
-			const xmlRequest = this.buildDoCanSearch(...arguments);
+			const xmlRequest = this.buildDoCanSearch({country, engineOptions, engineType, layout, callback});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -89,7 +69,7 @@
      */
 		this.doGetAddress = function({layout, moniker, callback}) {
 			const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetAddress';
-			const xmlRequest = this.buildDoGetAddressMessage(...arguments);
+			const xmlRequest = this.buildDoGetAddressMessage({layout, moniker, callback});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -116,7 +96,7 @@
       }
 
 			const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetDataMapDetail';
-			const xmlRequest = this.buildDoGetDataMapDetail(...arguments);
+			const xmlRequest = this.buildDoGetDataMapDetail({dataMap, callback});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -129,7 +109,7 @@
      */
 		this.doGetExampleAddresses = function({country, layout, callback}) {
 			const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetExampleAddresses';
-			const xmlRequest = this.buildDoGetExampleAddressesMessage(...arguments);
+			const xmlRequest = this.buildDoGetExampleAddressesMessage({country, layout, callback});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 
 		};
@@ -142,7 +122,7 @@
      */
 		this.doGetLayouts =  function({country, callback}) {
 			const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetLayouts';
-			const xmlRequest = this.buildDoGetLayoutsMessage(...arguments);
+			const xmlRequest = this.buildDoGetLayoutsMessage({country, callback});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -157,7 +137,7 @@
       }
 
 			const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetLicenseInfo';
-			const xmlRequest = this.buildDoGetLicenseInfoMessage(...arguments);
+			const xmlRequest = this.buildDoGetLicenseInfoMessage({callback});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -172,7 +152,7 @@
      */
 		this.doGetPromptSet = function({country, engineOptions, engineType, promptSet, callback}) {
 			const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetPromptSet';
-			const xmlRequest = this.buildDoGetPromptSetMessage(...arguments);
+			const xmlRequest = this.buildDoGetPromptSetMessage({country, engineOptions, engineType, promptSet, callback});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -206,7 +186,15 @@
       callback
     }) {
 			const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoRefine';
-			const xmlRequest = this.buildDoRefineMessage(...arguments);
+			const xmlRequest = this.buildDoRefineMessage({
+        refineOptions,
+        moniker,
+        refinement,
+        layout,
+        formattedAddressInPicklist,
+        callback
+      });
+
 			this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -231,7 +219,16 @@
       callback
     }) {
       const soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoSearch';
-      const xmlRequest = this.buildDoSearchMessage(...arguments);
+      const xmlRequest = this.buildDoSearchMessage({
+        country,
+        engineOptions,
+        engineType,
+        layout,
+        addressQuery,
+        formattedAddressInPicklist,
+        callback
+      });
+
       return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -654,9 +651,18 @@
 
     /*** Taken from X2JS ***/
 
-    this._parseDOMChildren = function(node, path, config = {}) {
+    /**
+     * @param {any}
+     * @param {any}
+     * @param {ConfigObject}
+     */
+    this._parseDOMChildren = function(node, path, config = <ConfigObject>{}) {
+
       config = initConfigDefaults(config);
 
+      /**
+       * @returns {ConfigObject}
+       */
       function initConfigDefaults(config) {
         return {
           escapeMode: config.escapeMode || true,
@@ -801,7 +807,7 @@
       }
 
       if(node.nodeType == DOMNodeTypes.DOCUMENT_NODE) {
-        var result = new Object;
+        var result = <ResultNode>{};
         var nodeChildren = node.childNodes;
         // Alternative for firstElementChild which is not supported in some environments
         for(var cidx=0; cidx <nodeChildren.length; cidx++) {
@@ -815,7 +821,7 @@
 			}
 			else
 			if(node.nodeType == DOMNodeTypes.ELEMENT_NODE) {
-				var result = new Object;
+				var result = <ResultNode>{};
 				result.__cnt=0;
 
 				var nodeChildren = node.childNodes;
@@ -878,7 +884,7 @@
 				}
 
 				if( result.__cnt == 0 && config.emptyNodeForm=="text" ) {
-					result = '';
+					result = <ResultNode>{};
 				}
 				else
 				if( result.__cnt == 1 && result.__text!=null  ) {
