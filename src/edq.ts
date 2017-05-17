@@ -884,7 +884,7 @@
 				}
 
 				if( result.__cnt == 0 && config.emptyNodeForm=="text" ) {
-					result = <ResultNode>{};
+					result = <any>'';
 				}
 				else
 				if( result.__cnt == 1 && result.__text!=null  ) {
