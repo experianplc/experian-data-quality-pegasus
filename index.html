@@ -2,7 +2,7 @@
 
 	<head>
     <meta content="text/html" charset="utf-8">
-    <link rel="stylesheet" href="./../unicorn/lib/global-intuitive-unicorn.css"></link>
+    <link rel="stylesheet" href="unicorn/global-intuitive-unicorn.css"></link>
 	</head>
 
 	<body>
@@ -54,10 +54,10 @@
         UNKNOWN_BASE64_ICON: null,
 
         /* Email validation options */
-        EMAIL_ELEMENT: document.getElementById('email'),
+        EMAIL_ELEMENTS: [document.getElementById('email')],
 
         /* Phone validation options */
-        PHONE_ELEMENT: document.getElementById('phone'),
+        PHONE_ELEMENTS: [document.getElementById('phone')],
 
         /* Global Intuitive Options */
         GLOBAL_INTUITIVE_ELEMENT: document.getElementById('address-line-one'),
@@ -112,8 +112,8 @@
 		<script src="lib/edq.js"></script>
 
     <!-- Unicorn -->
-    <script src="../unicorn/lib/email-unicorn.js"></script>
-    <script src="../unicorn/lib/phone-unicorn.js"></script>
-    <script src="../unicorn/lib/global-intuitive-unicorn.js"></script>
+    <script src="unicorn/email-unicorn.js"></script>
+    <script src="unicorn/phone-unicorn.js"></script>
+    <script src="unicorn/global-intuitive-unicorn.js"></script>
 	</body>
 </html>
