@@ -3,6 +3,7 @@
  */
 (function () {
     /* Configuration */
+    var _this = this;
     /** Used to be granted authorization to make calls to the ProWebOnDemand webservice
      *
      * @name PRO_WEB_AUTH_TOKEN
@@ -111,7 +112,11 @@
         var _loop_1 = function (i) {
             var element = elements[i];
             var emailElement = element;
-            emailElement.addEventListener('change', (function (event) {
+            var oldOnChangeFn = element.onchange;
+            if (oldOnChangeFn) {
+                oldOnChangeFn = oldOnChangeFn.bind(_this);
+            }
+            emailElement.onchange = (function (event) {
                 var elementValue = event.target.value;
                 if (!elementValue) {
                     removeSuggestion();
@@ -119,9 +124,15 @@
                     return;
                 }
                 changeIcon(emailElement, LOADING_BASE64_ICON);
-                EDQ.email.emailValidate({
+                var xhr = EDQ.email.emailValidate({
                     emailAddress: elementValue,
                     callback: function (data, error) {
+                        if (EDQ_CONFIG.DEBUG) {
+                            console.log('Data:');
+                            console.log(data);
+                            console.log('Error:');
+                            console.log(error);
+                        }
                         if (data && data.Certainty === 'verified') {
                             removeSuggestion();
                             changeIcon(emailElement, VERIFIED_BASE64_ICON);
@@ -135,11 +146,17 @@
                         }
                         else if (error) {
                             removeSuggestion();
-                            changeIcon(emailElement, INVALID_BASE64_ICON);
+                            changeIcon(emailElement, '');
+                        }
+                        try {
+                            oldOnChangeFn(event);
+                        }
+                        catch (e) {
                         }
                     }
                 });
-            }));
+                xhr.timeout = EDQ_CONFIG.EMAIL_TIMEOUT || 2000;
+            });
         };
         for (var i = 0; i < elements.length; i++) {
             _loop_1(i);
