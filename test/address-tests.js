@@ -121,6 +121,14 @@ QUnit.test('DoGetLayouts functions as intended', function(assert) {
 });
 
 QUnit.test('DoGetLicenseInfo functions as intended', function(assert) {
+  try {
+    EDQ.address.proWeb.doGetLicenseInfo({
+      callback: function(d, e) {
+      }
+    });
+  } catch(e) {
+    assert.equal(Boolean(e), true, 'DoGetLicenseInfo fails as expected');
+  }
   assert.equal(Boolean(EDQ.address.proWeb.doRefine), true, "The request can be made");
 });
 
