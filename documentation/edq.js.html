@@ -26,7 +26,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-EDQ.html">EDQ</a></li><li><a href="module-Email%2520Validate.html">Email Validate</a></li><li><a href="module-Global%2520Phone%2520Validate.html">Global Phone Validate</a></li><li><a href="module-ProWeb.html">ProWeb</a><ul class='methods'><li data-type='method'><a href="module-ProWeb.html#~DoCanSearch">DoCanSearch</a></li><li data-type='method'><a href="module-ProWeb.html#~DoGetAddress">DoGetAddress</a></li><li data-type='method'><a href="module-ProWeb.html#~DoGetData">DoGetData</a></li><li data-type='method'><a href="module-ProWeb.html#~DoGetDataMapDetail">DoGetDataMapDetail</a></li><li data-type='method'><a href="module-ProWeb.html#~DoGetExampleAddresses">DoGetExampleAddresses</a></li><li data-type='method'><a href="module-ProWeb.html#~DoGetLayouts">DoGetLayouts</a></li><li data-type='method'><a href="module-ProWeb.html#~DoGetLicenseInfo">DoGetLicenseInfo</a></li><li data-type='method'><a href="module-ProWeb.html#~DoGetPromptSet">DoGetPromptSet</a></li><li data-type='method'><a href="module-ProWeb.html#~DoGetSystemInfo">DoGetSystemInfo</a></li><li data-type='method'><a href="module-ProWeb.html#~DoRefine">DoRefine</a></li><li data-type='method'><a href="module-ProWeb.html#~DoSearch">DoSearch</a></li></ul></li><li><a href="module-Reverse%2520Phone%2520Append.html">Reverse Phone Append</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-email.html">email</a><ul class='methods'><li data-type='method'><a href="module-email.html#~emailValidate">emailValidate</a></li></ul></li><li><a href="module-globalIntuitive.html">globalIntuitive</a><ul class='methods'><li data-type='method'><a href="module-globalIntuitive.html#~format">format</a></li><li data-type='method'><a href="module-globalIntuitive.html#~formatById">formatById</a></li><li data-type='method'><a href="module-globalIntuitive.html#~search">search</a></li></ul></li><li><a href="module-phone.html">phone</a><ul class='methods'><li data-type='method'><a href="module-phone.html#~globalPhoneValidate">globalPhoneValidate</a></li><li data-type='method'><a href="module-phone.html#~reversePhoneAppend">reversePhoneAppend</a></li></ul></li><li><a href="module-proWeb.html">proWeb</a><ul class='methods'><li data-type='method'><a href="module-proWeb.html#~doCanSearch">doCanSearch</a></li><li data-type='method'><a href="module-proWeb.html#~doGetAddress">doGetAddress</a></li><li data-type='method'><a href="module-proWeb.html#~doGetData">doGetData</a></li><li data-type='method'><a href="module-proWeb.html#~doGetDataMapDetail">doGetDataMapDetail</a></li><li data-type='method'><a href="module-proWeb.html#~doGetExampleAddresses">doGetExampleAddresses</a></li><li data-type='method'><a href="module-proWeb.html#~doGetLayouts">doGetLayouts</a></li><li data-type='method'><a href="module-proWeb.html#~doGetLicenseInfo">doGetLicenseInfo</a></li><li data-type='method'><a href="module-proWeb.html#~doGetPromptSet">doGetPromptSet</a></li><li data-type='method'><a href="module-proWeb.html#~doGetSystemInfo">doGetSystemInfo</a></li><li data-type='method'><a href="module-proWeb.html#~doRefine">doRefine</a></li><li data-type='method'><a href="module-proWeb.html#~doSearch">doSearch</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#PRO_WEB_AUTH_TOKEN">PRO_WEB_AUTH_TOKEN</a></li><li><a href="global.html#PRO_WEB_SERVICE_URL">PRO_WEB_SERVICE_URL</a></li></ul>
 </nav>
 
 <div id="main">
@@ -42,7 +42,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module EDQ
+ * @global
  */
 (function () {
     /* Configuration */
@@ -79,7 +79,7 @@
     root.EDQ = EDQ;
     function _proWebHelpers() {
         var _this = this;
-        /**
+        /*
          * @param {String} country
          * @param {Object} engineOptions
          * @param {String} engineType
@@ -1064,58 +1064,83 @@
     var globalPhoneValidateHelper = new _phoneValidateHelper('globalPhone');
     var emailValidateHelper = new _emailValidateHelper();
     var globalIntuitiveHelper = new _globalIntuitiveHelpers();
+    /**
+     * @module email
+     */
     EDQ.email = {
         /**
+         * Validates an email address
          * This module is a wrapper around the REST calls for Email Validateion
          * Additional documentation for the REST calls can be found here:
          *
          * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/}
          *
-         * @module Email Validate
-         */
-        /**
-         * Validates an email address
+         * @example @executable
+         * EDQ.email.emailValidate({
+         *  emailAddress: 'support@edq.com',
+         *  callback: function(data, error) {
+         *    console.log(data.toSource());
+         *  }
+         * });
+         *
+         * @name emailValidate
+         * @function
          *
          * @param {String} emailAddress
          * @param {Number} timeout
          * @param {Boolean} verbose
-         * @param {Function} callback
+         * @param {callback} callback
          *
          * @returns {XMLHttpRequest}
          */
         emailValidate: emailValidateHelper.emailValidate.bind(emailValidateHelper)
     };
+    /**
+     * @module phone
+     */
     EDQ.phone = {
         /**
+         * Validates a phone number, and returns any user information, if available
          * This module is a wrapper around the REST calls for PhoneValidatePlus (Reverse Phone Append)
          * Additional documentation for the REST calls can be found here:
-         *
          * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/}
          *
-         * @module Reverse Phone Append
-         */
-        /**
-         * Validates a phone number, and returns any user information, if available
+         * @example @executable
+         * EDQ.phone.reversePhoneAppend({
+         *  phoneNumber: '+16171234567',
+         *  callback: function(data, error) {
+         *    console.log(data.toSource());
+         *  }
+         * });
+         *
+         * @name reversePhoneAppend
+         * @function
          *
          * @param {String} phoneNumber
-         * @param {Function} callback
+         * @param {callback} callback
          *
          * @returns {XMLHttpRequest}
          */
         reversePhoneAppend: reversePhoneValidateHelper.reversePhoneAppend.bind(reversePhoneValidateHelper),
         /**
+         * Validates a phone number
          * This module is a wrapper around the REST calls for PhoneValidate (Global Phone Validate)
          * Additional documentation for the REST calls can be found here:
-         *
          * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/}
          *
-         * @module Global Phone Validate
-         */
-        /**
-         * Validates a phone number
+         * @example @executable
+         * EDQ.phone.globalPhoneValidate({
+         *  phoneNumber: '+16171234567',
+         *  callback: function(data, error) {
+         *    console.log(data.toSource());
+         *  }
+         * });
+         *
+         * @name globalPhoneValidate
+         * @function
          *
          * @param {String} phoneNumber
-         * @param {Function} callback
+         * @param {callback} callback
          *
          * @returns {XMLHttpRequest}
          */
@@ -1128,31 +1153,68 @@
          *
          * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
          *
-         * @module ProWeb
+         * @module globalIntuitive
          */
         globalIntuitive: {
-            /** Returns a collection of suggested addresses based on the search query and country
+            /**
+             * Returns a collection of suggested addresses based on the search query and country
+             *
+             * @example @executable
+             * EDQ.address.globalIntuitive.search({
+             *  query: '125 Summer Street',
+             *  country: 'USA',
+             *  callback: function(data, error) {
+             *    console.log(data.toSource());
+             *  }
+             * });
+             *
+             * @name search
+             * @function
              *
              * @param {String} query
              * @param {String} country - ISO-3 country code
              * @param {Number} take - the amount of results to be returned
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
             search: globalIntuitiveHelper.search.bind(globalIntuitiveHelper),
-            /** Returns the full address and component breakdown for the chosen address
+            /**
+             * Returns the full address and component breakdown for the chosen address
+             *
+             * @example @executable
+             * EDQ.address.globalIntuitive.search({
+             *  query: '125 Summer Street',
+             *  country: 'USA',
+             *  callback: function(data, error) {
+             *    var formatUrl = data.results[0].format;
+             *
+             *    EDQ.address.globalIntuitive.format({
+             *      formatUrl: formatUrl,
+             *      callback: function(data, error) {
+             *        console.log(data.toSource());
+             *      }
+             *    })
+             *  }
+             * });
+      
+             * @name format
+             * @function
              *
              * @param {String} formatUrl
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
             format: globalIntuitiveHelper.format.bind(globalIntuitiveHelper),
-            /** Returns the full address and component breakdown for the chosen address
+            /**
+             * Returns the full address and component breakdown for the chosen address
+             *
+             * @name formatById
+             * @function
              *
              * @param {String} addressId - address id from #search
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1164,7 +1226,7 @@
          *
          * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
          *
-         * @module ProWeb
+         * @module proWeb
          */
         proWeb: {
             /**
@@ -1180,14 +1242,14 @@
              *  }
              * });
              *
-             * @name DoCanSearch
+             * @name doCanSearch
              * @function
              *
              * @param {String} country
              * @param {Object} engineOptions
              * @param {String} engineType
              * @param {String} layout
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1217,12 +1279,12 @@
              *  }
              * });
              *
-             * @name DoGetAddress
+             * @name doGetAddress
              * @function
              *
              * @param {String} layout
              * @param {String} moniker
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1237,10 +1299,10 @@
              *  }
              * });
              *
-             * @name DoGetData
+             * @name doGetData
              * @function
              *
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1260,11 +1322,11 @@
              *  console.log(e);
              * }
       
-             * @name DoGetDataMapDetail
+             * @name doGetDataMapDetail
              * @function
              *
              * @param {String} dataMap
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1280,12 +1342,13 @@
              *    console.log(data.toSource());
              *  }
              * });
-             * @name DoGetExampleAddresses
+             *
+             * @name doGetExampleAddresses
              * @function
              *
              * @param {String} country
              * @param {String} layout
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1300,11 +1363,12 @@
              *    console.log(data.toSource());
              *  }
              * });
-             * @name DoGetLayouts
+             *
+             * @name doGetLayouts
              * @function
              *
              * @param {String} country
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1312,7 +1376,6 @@
             /**
              * Returns license information for ProWebOnDemand.
              *
-             * @name DoGetLicenseInfo
              * @example @executable
              * try {
              *  EDQ.address.proWeb.doGetLicenseInfo({
@@ -1325,9 +1388,10 @@
              *  console.log(e);
              * }
              *
+             * @name doGetLicenseInfo
              * @function
              *
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1347,14 +1411,14 @@
              *  }
              * });
              *
-             * @name DoGetPromptSet
+             * @name doGetPromptSet
              * @function
              *
              * @param {String} country
              * @param {Object} engineOptions
              * @param {String} engineType
              * @param {String} promptSet
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1370,10 +1434,10 @@
              *  }
              * });
              *
-             * @name DoGetSystemInfo
+             * @name doGetSystemInfo
              * @function
              *
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1395,7 +1459,7 @@
              *  }
              * });
              *
-             * @name DoRefine
+             * @name doRefine
              * @function
              *
              * @param {String} refineOptions
@@ -1403,7 +1467,7 @@
              * @param {String} refinement
              * @param {String} layout
              * @param {Boolean} formattedAddressInPicklist
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
@@ -1425,7 +1489,7 @@
              *  }
              * });
              *
-             * @name DoSearch
+             * @name doSearch
              * @function
              *
              * @param {String} country - an ISO-3 code, e.g. `USA`
@@ -1434,13 +1498,20 @@
              * @param {String} layout - a layout type e.g. 'EDQDemoLayout'
              * @param {String} addressQuery - a string representing an address
              * @param {Boolean} formattedAddressInPicklist
-             * @param {Function} callback
+             * @param {callback} callback
              *
              * @returns {XMLHttpRequest}
              */
             doSearch: proWebHelper.doSearch.bind(proWebHelper),
         },
     };
+    /**
+     * This is the callback style for all callbacks using this library.
+     *
+     * @callback callback
+     * @param {Object} data - object with data, if the request is successful
+     * @param {Object} error - an error object, if there's any
+     */
 }).call(this);
 </code></pre>
         </article>
@@ -1454,7 +1525,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 14 2017 13:36:13 GMT-0700 (PDT) using
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 15 2017 12:46:27 GMT-0700 (PDT) using
     the <a href="https://github.com/tabeth/jsdocplay">jsdocplay</a> theme.
 </footer>
 
