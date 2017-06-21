@@ -1,0 +1,2747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ProWebOnDemand - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="jsblock/lib/jsblock.js"></script>
+    <script src="scripts/edq.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="jsblock/lib/jsblock.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="Address.module_Address%2520-%2520Global%2520Intuitive.html">Address - Global Intuitive</a><ul class='methods'><li data-type='method'><a href="Address.module_Address%252520-%252520Global%252520Intuitive.html#~Format">Format</a></li><li data-type='method'><a href="Address.module_Address%252520-%252520Global%252520Intuitive.html#~FormatById">FormatById</a></li><li data-type='method'><a href="Address.module_Address%252520-%252520Global%252520Intuitive.html#~Search">Search</a></li></ul></li><li><a href="module-Address.html">Address</a></li><li><a href="module-Email.html">Email</a></li><li><a href="module-Phone.html">Phone</a><ul class='methods'><li data-type='method'><a href="module-Phone.html#~GlobalPhoneValidate">GlobalPhoneValidate</a></li><li data-type='method'><a href="module-Phone.html#~ReversePhoneAppend">ReversePhoneAppend</a></li></ul></li><li><a href="module-ProWebOnDemand.html">ProWebOnDemand</a><ul class='methods'><li data-type='method'><a href="module-ProWebOnDemand.html#~DoCanSearch">DoCanSearch</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoGetAddress">DoGetAddress</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoGetData">DoGetData</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoGetDataMapDetail">DoGetDataMapDetail</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoGetExampleAddresses">DoGetExampleAddresses</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoGetLayouts">DoGetLayouts</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoGetLicenseInfo">DoGetLicenseInfo</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoGetPromptSet">DoGetPromptSet</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoGetSystemInfo">DoGetSystemInfo</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoRefine">DoRefine</a></li><li data-type='method'><a href="module-ProWebOnDemand.html#~DoSearch">DoSearch</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#PRO_WEB_AUTH_TOKEN">PRO_WEB_AUTH_TOKEN</a></li><li><a href="global.html#PRO_WEB_SERVICE_URL">PRO_WEB_SERVICE_URL</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">ProWebOnDemand</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">This module is a wrapper around the SOAP XML calls for ProWebOnDemand.
+Additional documentation for the SOAP calls can be found here:
+
+<br><br> <a href="https://www.edq.com/documentation/apis/address-validate/address-validate-soap/">https://www.edq.com/documentation/apis/address-validate/address-validate-soap/</a></div>
+        
+
+        
+            
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1131">line 1131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoCanSearch"><span class="type-signature">(inner) </span>DoCanSearch<span class="signature">(country, engineOptions, engineType, layout, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1140">line 1140</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Checks that the combination of data mapping, engine and layout are valid for searching.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doCanSearch({
+ country: 'USA',
+ engineOptions: {},
+ layout: 'EDQDemoLayout',
+ callback: function(data, error) {
+   console.log(data.toSource());
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>country</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>engineOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>engineType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>layout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoGetAddress"><span class="type-signature">(inner) </span>DoGetAddress<span class="signature">(layout, moniker, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1165">line 1165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Formats a picklist item to obtain a final, formatted address.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doSearch({
+ country: 'USA',
+ engineOptions: {},
+ engineType: 'Verification',
+ layout: 'EDQDemoLayout',
+ addressQuery: '125 Summer Street, Boston MA 02110',
+ formattedAddressInPicklist: false,
+
+ // Monikers expires, so to use this function you have to get a fresh one, hence
+ // the need for a doSearch
+ callback: function(data) {
+  EDQ.address.proWeb.doGetAddress({
+   moniker: data.Envelope.Body.QASearchResult.QAPicklist.FullPicklistMoniker,
+   layout: 'EDQDemoLayout',
+   callback: function(data, error) {
+     console.log(data.toSource());
+   }
+  });
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>layout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>moniker</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoGetData"><span class="type-signature">(inner) </span>DoGetData<span class="signature">(callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1200">line 1200</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Obtains a list of available data mappings
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doGetData({
+ callback: function(data, error) {
+   console.log(data.toSource());
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoGetDataMapDetail"><span class="type-signature">(inner) </span>DoGetDataMapDetail<span class="signature">(dataMap, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1218">line 1218</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    NOTE: This does not function on the latest version of ProWeb
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>try {
+ EDQ.address.proWeb.doGetDataMapDetail({
+   callback: function(data, error) {
+     // This function does not work
+     console.log(data);
+   }
+ });
+} catch(e) {
+ console.log(e);
+}</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dataMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoGetExampleAddresses"><span class="type-signature">(inner) </span>DoGetExampleAddresses<span class="signature">(country, layout, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1242">line 1242</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Returns fully formatted example addresses
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doGetExampleAddresses({
+ country: 'USA',
+ layout: 'AllElements',
+ callback: function(data, error) {
+   console.log(data.toSource());
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>country</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>layout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoGetLayouts"><span class="type-signature">(inner) </span>DoGetLayouts<span class="signature">(country, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1264">line 1264</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Obtains a list of layouts that have been configured within the configuration file.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doGetLayouts({
+ country: 'USA',
+ callback: function(data, error) {
+   console.log(data.toSource());
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>country</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoGetLicenseInfo"><span class="type-signature">(inner) </span>DoGetLicenseInfo<span class="signature">(callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1284">line 1284</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Returns license information for ProWebOnDemand.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>try {
+ EDQ.address.proWeb.doGetLicenseInfo({
+   callback: function(data, error) {
+     // This function does not work
+     console.log(data);
+   }
+ });
+} catch(e) {
+ console.log(e);
+}</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoGetPromptSet"><span class="type-signature">(inner) </span>DoGetPromptSet<span class="signature">(country, engineOptions, engineType, promptSet, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1307">line 1307</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Returns prompt set information.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doGetPromptSet({
+ country: 'USA',
+ engineOptions: {},
+ engineType: 'Verification',
+ promptSet: 'Default',
+ callback: function(data, error) {
+   console.log(data.toSource());
+   console.log(error);
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>country</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>engineOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>engineType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>promptSet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoGetSystemInfo"><span class="type-signature">(inner) </span>DoGetSystemInfo<span class="signature">(callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1334">line 1334</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Returns information about the server
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doGetSystemInfo({
+ callback: function(data, error) {
+   console.log(data.toSource());
+   console.log(error);
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoRefine"><span class="type-signature">(inner) </span>DoRefine<span class="signature">(refineOptions, moniker, refinement, layout, formattedAddressInPicklist, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1353">line 1353</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Used to step into and refine a picklist result
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doRefine({
+ country: 'USA',
+ refineOptions: {},
+ layout: 'EDQDemoLayout',
+ moniker: '',
+ refinement: '',
+ formattedAddressInPicklist: false,
+ callback: function(data, error) {
+   console.log(data.toSource());
+   console.log(error);
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>refineOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>moniker</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>refinement</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>layout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>formattedAddressInPicklist</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~DoSearch"><span class="type-signature">(inner) </span>DoSearch<span class="signature">(country, engineOptions, engineType, layout, addressQuery, formattedAddressInPicklist, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1383">line 1383</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Submits an initial search to the server
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Interactive Example</h5>
+    
+    <pre class="prettyprint executable-example"><code>EDQ.address.proWeb.doSearch({
+ country: 'USA',
+ engineOptions: {},
+ engineType: 'Verification',
+ layout: 'EDQDemoLayout',
+ addressQuery: '125 Summer Street, Boston MA 02110',
+ formattedAddressInPicklist: false,
+ callback: function(data, error) {
+   console.log(data.toSource());
+   console.log(error);
+ }
+});</code></pre>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>country</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an ISO-3 code, e.g. `USA`</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>engineOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">options to customize the engine with</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>engineType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an type of engine to run the service against, e.g. Verification</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>layout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a layout type e.g. 'EDQDemoLayout'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>addressQuery</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a string representing an address</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>formattedAddressInPicklist</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+
+    
+
+    <h4 class="name" id="~callback"><span class="type-signature"></span>callback<span class="signature">(data, error)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1416">line 1416</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    This is the callback style for all callbacks using this library.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object with data, if the request is successful</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">an error object, if there's any</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 15 2017 12:22:25 GMT-0700 (PDT) using
+    the <a href="https://github.com/tabeth/jsdocplay">jsdocplay</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script>
+  document.querySelectorAll('.executable-example').forEach(function(el) {
+    new jsblock(el, {
+      editable: true,
+      consoleText: "Click 'run' to try the example",
+      runButtonText: "Run",
+      editorTheme: "ace/theme/monokai"
+    })
+  });
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

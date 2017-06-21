@@ -1,47 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>edq.js - Documentation</title>
-
-    <script src="scripts/prettify/prettify.js"></script>
-    <script src="scripts/prettify/lang-css.js"></script>
-    <script src="jsblock/lib/jsblock.js"></script>
-    <script src="scripts/edq.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
-    <link type="text/css" rel="stylesheet" href="jsblock/lib/jsblock.css">
-</head>
-<body>
-
-<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-<label for="nav-trigger" class="navicon-button x">
-  <div class="navicon"></div>
-</label>
-
-<label for="nav-trigger" class="overlay"></label>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-email.html">email</a><ul class='methods'><li data-type='method'><a href="module-email.html#~emailValidate">emailValidate</a></li></ul></li><li><a href="module-globalIntuitive.html">globalIntuitive</a><ul class='methods'><li data-type='method'><a href="module-globalIntuitive.html#~format">format</a></li><li data-type='method'><a href="module-globalIntuitive.html#~formatById">formatById</a></li><li data-type='method'><a href="module-globalIntuitive.html#~search">search</a></li></ul></li><li><a href="module-phone.html">phone</a><ul class='methods'><li data-type='method'><a href="module-phone.html#~globalPhoneValidate">globalPhoneValidate</a></li><li data-type='method'><a href="module-phone.html#~reversePhoneAppend">reversePhoneAppend</a></li></ul></li><li><a href="module-proWeb.html">proWeb</a><ul class='methods'><li data-type='method'><a href="module-proWeb.html#~doCanSearch">doCanSearch</a></li><li data-type='method'><a href="module-proWeb.html#~doGetAddress">doGetAddress</a></li><li data-type='method'><a href="module-proWeb.html#~doGetData">doGetData</a></li><li data-type='method'><a href="module-proWeb.html#~doGetDataMapDetail">doGetDataMapDetail</a></li><li data-type='method'><a href="module-proWeb.html#~doGetExampleAddresses">doGetExampleAddresses</a></li><li data-type='method'><a href="module-proWeb.html#~doGetLayouts">doGetLayouts</a></li><li data-type='method'><a href="module-proWeb.html#~doGetLicenseInfo">doGetLicenseInfo</a></li><li data-type='method'><a href="module-proWeb.html#~doGetPromptSet">doGetPromptSet</a></li><li data-type='method'><a href="module-proWeb.html#~doGetSystemInfo">doGetSystemInfo</a></li><li data-type='method'><a href="module-proWeb.html#~doRefine">doRefine</a></li><li data-type='method'><a href="module-proWeb.html#~doSearch">doSearch</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#PRO_WEB_AUTH_TOKEN">PRO_WEB_AUTH_TOKEN</a></li><li><a href="global.html#PRO_WEB_SERVICE_URL">PRO_WEB_SERVICE_URL</a></li></ul>
-</nav>
-
-<div id="main">
-    
-    <h1 class="page-title">edq.js</h1>
-    
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+/**
  * @global
  */
 (function () {
@@ -256,15 +213,15 @@
          */
         this.buildDoCanSearch = function (_a) {
             var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout;
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QASearch Localisation="" RequestTag="">' +
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QASearch Localisation="" RequestTag="">' +
                 this._buildSoapCountryString(country) +
                 this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType }) +
                 this._buildSoapLayoutString(layout) +
-                '&lt;/ond:QASearch>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+                '</ond:QASearch>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
@@ -275,14 +232,14 @@
          */
         this.buildDoGetAddressMessage = function (_a) {
             var layout = _a.layout, moniker = _a.moniker;
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QAGetAddress Localisation="" RequestTag="">' +
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QAGetAddress Localisation="" RequestTag="">' +
                 this._buildSoapLayoutString(layout) +
-                '&lt;ond:Moniker>' + moniker + '&lt;/ond:Moniker>' +
-                '&lt;/ond:QAGetAddress>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+                '<ond:Moniker>' + moniker + '</ond:Moniker>' +
+                '</ond:QAGetAddress>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
@@ -293,26 +250,26 @@
          */
         this.buildDoGetExampleAddressesMessage = function (_a) {
             var country = _a.country, layout = _a.layout;
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QAGetExampleAddresses Localisation="" RequestTag="">' +
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QAGetExampleAddresses Localisation="" RequestTag="">' +
                 this._buildSoapCountryString(country) +
                 this._buildSoapLayoutString(layout) +
-                '&lt;/ond:QAGetExampleAddresses>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+                '</ond:QAGetExampleAddresses>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
          * @returns {String}
          */
         this.buildDoGetDataMessage = function () {
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QAGetData Localisation="" >' +
-                '&lt;/ond:QAGetData>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QAGetData Localisation="" >' +
+                '</ond:QAGetData>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
@@ -322,24 +279,24 @@
          */
         this.buildDoGetDataMapDetail = function (_a) {
             var dataMap = _a.dataMap;
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QAGetDataMapDetail Localisation="">' +
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QAGetDataMapDetail Localisation="">' +
                 this._buildSoapDataMapString(dataMap) +
-                '&lt;/ond:QAGetDataMapDetail>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+                '</ond:QAGetDataMapDetail>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
          * @returns {String}
          */
         this.buildDoGetLicenseInfoMessage = function () {
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QAGetLicenseInfo Localisation=""/>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QAGetLicenseInfo Localisation=""/>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         },
             /*
@@ -349,13 +306,13 @@
              */
             this.buildDoGetLayoutsMessage = function (_a) {
                 var country = _a.country;
-                var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                    '&lt;soapenv:Body>' +
-                    '&lt;ond:QAGetLayouts Localisation="">' +
+                var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                    '<soapenv:Body>' +
+                    '<ond:QAGetLayouts Localisation="">' +
                     this._buildSoapCountryString(country) +
-                    '&lt;/ond:QAGetLayouts>' +
-                    '&lt;/soapenv:Body>' +
-                    '&lt;/soapenv:Envelope>';
+                    '</ond:QAGetLayouts>' +
+                    '</soapenv:Body>' +
+                    '</soapenv:Envelope>';
                 return xmlString;
             };
         /*
@@ -368,26 +325,26 @@
          */
         this.buildDoGetPromptSetMessage = function (_a) {
             var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, promptSet = _a.promptSet;
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QAGetPromptSet Localisation="">' +
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QAGetPromptSet Localisation="">' +
                 this._buildSoapCountryString(country) +
                 this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType }) +
                 this._buildSoapPromptSetString(promptSet) +
-                '&lt;/ond:QAGetPromptSet>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+                '</ond:QAGetPromptSet>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
          * @returns {String}
          */
         this.buildDoGetSystemInfoMessage = function () {
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QAGetSystemInfo Localisation=""/>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QAGetSystemInfo Localisation=""/>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
@@ -403,9 +360,9 @@
             var refineOptions = _a.refineOptions, moniker = _a.moniker, refinement = _a.refinement, layout = _a.layout, formattedAddressInPicklist = _a.formattedAddressInPicklist;
             var threshold = this._cleanThreshold(refineOptions.threshold);
             var timeout = this._cleanTimeout(refineOptions.timeout);
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QARefine Threshold=' + '\"' + threshold + '\"' + ' ' +
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QARefine Threshold=' + '\"' + threshold + '\"' + ' ' +
                 'Timeout=' + '\"' + timeout + '\"' + ' ' +
                 'Localisation=""' + ' ' +
                 'RequestTag=""' +
@@ -414,9 +371,9 @@
                 this._buildSoapRefinementString(refinement) +
                 this._buildSoapLayoutString(layout) +
                 this._buildSoapFormatString(formattedAddressInPicklist) +
-                '&lt;/ond:QARefine>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+                '</ond:QARefine>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
@@ -431,17 +388,17 @@
          */
         this.buildDoSearchMessage = function (_a) {
             var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, addressQuery = _a.addressQuery, formattedAddressInPicklist = _a.formattedAddressInPicklist;
-            var xmlString = '&lt;soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
-                '&lt;soapenv:Body>' +
-                '&lt;ond:QASearch Localisation="" RequestTag="">' +
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                '<soapenv:Body>' +
+                '<ond:QASearch Localisation="" RequestTag="">' +
                 this._buildSoapCountryString(country) +
                 this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType }) +
                 this._buildSoapLayoutString(layout) +
                 this._buildSoapSearchString(addressQuery) +
                 this._buildSoapFormatString(formattedAddressInPicklist) +
-                '&lt;/ond:QASearch>' +
-                '&lt;/soapenv:Body>' +
-                '&lt;/soapenv:Envelope>';
+                '</ond:QASearch>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
             return xmlString;
         };
         /*
@@ -527,7 +484,7 @@
          * @returns {String}
          */
         this._buildSoapFormatString = function (formatAddress) {
-            return '&lt;ond:FormattedAddressInPicklist>' + formatAddress + '&lt;/ond:FormattedAddressInPicklist>';
+            return '<ond:FormattedAddressInPicklist>' + formatAddress + '</ond:FormattedAddressInPicklist>';
         };
         /*
      * @param {Object} object.engineOptions - contains an object that has the engine options (see #_cleanEngineOptions)
@@ -544,13 +501,13 @@
             var promptSet = result.promptSet;
             var threshold = result.threshold;
             var timeout = result.timeout;
-            var engineSoapString = '&lt;ond:Engine' + ' ' +
+            var engineSoapString = '<ond:Engine' + ' ' +
                 'Flatten=' + '\'' + flatten + '\' ' +
                 'Intensity=' + '\'' + intensity + '\' ' +
                 'PromptSet=' + '\'' + promptSet + '\' ' +
                 'Threshold=' + '\'' + threshold + '\' ' +
                 'Timeout=' + '\'' + timeout + '\' ' +
-                '>' + engineType + '&lt;/ond:Engine>';
+                '>' + engineType + '</ond:Engine>';
             return engineSoapString;
         };
         /*
@@ -566,7 +523,7 @@
          * @returns {String}
          */
         this._buildSoapMonikerString = function (moniker) {
-            return '&lt;ond:Moniker>' + moniker + '&lt;/ond:Moniker>';
+            return '<ond:Moniker>' + moniker + '</ond:Moniker>';
         },
             /*
          * @param {String} refinement
@@ -574,7 +531,7 @@
              * @returns {String}
              */
             this._buildSoapRefinementString = function (refinement) {
-                return '&lt;ond:Refinement>' + refinement + '&lt;/ond:Refinement>';
+                return '<ond:Refinement>' + refinement + '</ond:Refinement>';
             };
         /*
      * @param {String} layoutType
@@ -583,28 +540,28 @@
          */
         this._buildSoapLayoutString = function (layoutType) {
             if (layoutType === void 0) { layoutType = 'AllElements'; }
-            return '&lt;ond:Layout>' + layoutType + '&lt;/ond:Layout>';
+            return '<ond:Layout>' + layoutType + '</ond:Layout>';
         };
         /* @param {String} addressQuery
      *
          * @returns {String}
          */
         this._buildSoapSearchString = function (addressQuery) {
-            return '&lt;ond:Search>' + addressQuery + '&lt;/ond:Search>';
+            return '<ond:Search>' + addressQuery + '</ond:Search>';
         };
         /* @param {String} promptSet
      *
          * @returns {String}
          */
         this._buildSoapPromptSetString = function (promptSet) {
-            return '&lt;ond:PromptSet>' + promptSet + '&lt;/ond:PromptSet>';
+            return '<ond:PromptSet>' + promptSet + '</ond:PromptSet>';
         };
         /* @param {String} country
      *
          * @returns {String}
          */
         this._buildSoapCountryString = function (country) {
-            return '&lt;ond:Country>' + country + '&lt;/ond:Country>';
+            return '<ond:Country>' + country + '</ond:Country>';
         };
         /*
          * @param {String} dataMap
@@ -612,7 +569,7 @@
          * @returns {String}
          */
         this._buildSoapDataMapString = function (dataMap) {
-            return '&lt;ond:DataMap>' + dataMap + '&lt;/ond:DataMap>';
+            return '<ond:DataMap>' + dataMap + '</ond:DataMap>';
         };
         /*** Taken from X2JS ***/
         /**
@@ -663,16 +620,16 @@
             }
             function escapeXmlChars(str) {
                 if (typeof (str) == "string")
-                    return str.replace(/&amp;/g, '&amp;amp;').replace(/&lt;/g, '&amp;lt;').replace(/>/g, '&amp;gt;').replace(/"/g, '&amp;quot;').replace(/'/g, '&amp;apos;');
+                    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
                 else
                     return str;
             }
             function unescapeXmlChars(str) {
-                return str.replace(/&amp;lt;/g, '&lt;').replace(/&amp;gt;/g, '>').replace(/&amp;quot;/g, '"').replace(/&amp;apos;/g, "'").replace(/&amp;amp;/g, '&amp;');
+                return str.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
             }
             function checkInStdFiltersArrayForm(stdFiltersArrayForm, obj, name, path) {
                 var idx = 0;
-                for (; idx &lt; stdFiltersArrayForm.length; idx++) {
+                for (; idx < stdFiltersArrayForm.length; idx++) {
                     var filterPath = stdFiltersArrayForm[idx];
                     if (typeof filterPath === "string") {
                         if (filterPath == path)
@@ -698,7 +655,7 @@
                             obj[childName + "_asArray"] = obj[childName];
                         break;
                 }
-                if (!(obj[childName] instanceof Array) &amp;&amp; config.arrayAccessFormPaths.length > 0) {
+                if (!(obj[childName] instanceof Array) && config.arrayAccessFormPaths.length > 0) {
                     if (checkInStdFiltersArrayForm(config.arrayAccessFormPaths, obj, childName, path)) {
                         obj[childName] = [obj[childName]];
                     }
@@ -714,7 +671,7 @@
                 if (secondBits.length > 1)
                     d.setMilliseconds(secondBits[1]);
                 // Get supplied time zone offset in minutes
-                if (bits[6] &amp;&amp; bits[7]) {
+                if (bits[6] && bits[7]) {
                     var offsetMinutes = bits[6] * 60 + Number(bits[7]);
                     var sign = /\d\d-\d\d:\d\d$/.test(prop) ? '-' : '+';
                     // Apply the sign
@@ -741,7 +698,7 @@
                     return value;
             }
             function checkXmlElementsFilter(obj, childType, childName, childPath) {
-                if (childType == DOMNodeTypes.ELEMENT_NODE &amp;&amp; config.xmlElementsFilter.length > 0) {
+                if (childType == DOMNodeTypes.ELEMENT_NODE && config.xmlElementsFilter.length > 0) {
                     return checkInStdFiltersArrayForm(config.xmlElementsFilter, obj, childName, childPath);
                 }
                 else
@@ -751,7 +708,7 @@
                 var result = {};
                 var nodeChildren = node.childNodes;
                 // Alternative for firstElementChild which is not supported in some environments
-                for (var cidx = 0; cidx &lt; nodeChildren.length; cidx++) {
+                for (var cidx = 0; cidx < nodeChildren.length; cidx++) {
                     var child = nodeChildren.item(cidx);
                     if (child.nodeType == DOMNodeTypes.ELEMENT_NODE) {
                         var childName = getNodeLocalName(child);
@@ -765,7 +722,7 @@
                 result.__cnt = 0;
                 var nodeChildren = node.childNodes;
                 // Children nodes
-                for (var cidx = 0; cidx &lt; nodeChildren.length; cidx++) {
+                for (var cidx = 0; cidx < nodeChildren.length; cidx++) {
                     var child = nodeChildren.item(cidx); // nodeChildren[cidx];
                     var childName = getNodeLocalName(child);
                     if (child.nodeType != DOMNodeTypes.COMMENT_NODE) {
@@ -788,13 +745,13 @@
                         }
                     }
                 }
-                for (var aidx = 0; aidx &lt; node.attributes.length; aidx++) {
+                for (var aidx = 0; aidx < node.attributes.length; aidx++) {
                     var attr = node.attributes.item(aidx);
                     result.__cnt++;
                     result[config.attributePrefix + attr.name] = attr.value;
                 }
                 var nodePrefix = getNodePrefix(node);
-                if (nodePrefix != null &amp;&amp; nodePrefix != "") {
+                if (nodePrefix != null && nodePrefix != "") {
                     result.__cnt++;
                     result.__prefix = nodePrefix;
                 }
@@ -816,22 +773,22 @@
                     if (config.arrayAccessForm == "property")
                         delete result["#cdata-section_asArray"];
                 }
-                if (result.__cnt == 0 &amp;&amp; config.emptyNodeForm == "text") {
+                if (result.__cnt == 0 && config.emptyNodeForm == "text") {
                     result = '';
                 }
-                else if (result.__cnt == 1 &amp;&amp; result.__text != null) {
+                else if (result.__cnt == 1 && result.__text != null) {
                     result = result.__text;
                 }
-                else if (result.__cnt == 1 &amp;&amp; result.__cdata != null &amp;&amp; !config.keepCData) {
+                else if (result.__cnt == 1 && result.__cdata != null && !config.keepCData) {
                     result = result.__cdata;
                 }
-                else if (result.__cnt > 1 &amp;&amp; result.__text != null &amp;&amp; config.skipEmptyTextNodesForObj) {
-                    if ((config.stripWhitespaces &amp;&amp; result.__text == "") || (result.__text.trim() == "")) {
+                else if (result.__cnt > 1 && result.__text != null && config.skipEmptyTextNodesForObj) {
+                    if ((config.stripWhitespaces && result.__text == "") || (result.__text.trim() == "")) {
                         delete result.__text;
                     }
                 }
                 delete result.__cnt;
-                if (config.enableToStringFunc &amp;&amp; (result.__text != null || result.__cdata != null)) {
+                if (config.enableToStringFunc && (result.__text != null || result.__cdata != null)) {
                     result.toString = function () {
                         return (this.__text != null ? this.__text : '') + (this.__cdata != null ? this.__cdata : '');
                     };
@@ -863,7 +820,7 @@
             else if (!GLOBAL_INTUITIVE_AUTH_TOKEN) {
                 throw 'Missing GLOBAL_INTUITIVE_AUTH_TOKEN';
             }
-            var data = "?query=" + query + "&amp;country=" + country + "&amp;take=" + take + "&amp;auth-token=" + GLOBAL_INTUITIVE_AUTH_TOKEN;
+            var data = "?query=" + query + "&country=" + country + "&take=" + take + "&auth-token=" + GLOBAL_INTUITIVE_AUTH_TOKEN;
             return _this.makeRequest(data, GLOBAL_INTUITIVE_URL + "/Search", callback);
         });
         /*
@@ -880,7 +837,7 @@
             else if (!GLOBAL_INTUITIVE_AUTH_TOKEN) {
                 throw 'Missing GLOBAL_INTUITIVE_AUTH_TOKEN';
             }
-            var data = "&amp;auth-token=" + GLOBAL_INTUITIVE_AUTH_TOKEN;
+            var data = "&auth-token=" + GLOBAL_INTUITIVE_AUTH_TOKEN;
             return _this.makeRequest(data, formatUrl, callback);
         });
         /*
@@ -899,7 +856,7 @@
             else if (!GLOBAL_INTUITIVE_AUTH_TOKEN) {
                 throw 'Missing GLOBAL_INTUITIVE_AUTH_TOKEN';
             }
-            var data = "?id=" + addressId + "&amp;country=" + country + "&amp;take=" + take + "&amp;auth-token=" + GLOBAL_INTUITIVE_AUTH_TOKEN;
+            var data = "?id=" + addressId + "&country=" + country + "&take=" + take + "&auth-token=" + GLOBAL_INTUITIVE_AUTH_TOKEN;
             return _this.makeRequest(data, GLOBAL_INTUITIVE_AUTH_TOKEN + "/Format", callback);
         });
         /*
@@ -1065,26 +1022,14 @@
     var emailValidateHelper = new _emailValidateHelper();
     var globalIntuitiveHelper = new _globalIntuitiveHelpers();
     /**
-     * @module email
+     * @module Email
      */
     EDQ.email = {
         /**
          * Validates an email address
          * This module is a wrapper around the REST calls for Email Validateion
          * Additional documentation for the REST calls can be found here:
-         *
-         * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/}
-         *
-         * @example @executable
-         * EDQ.email.emailValidate({
-         *  emailAddress: 'support@edq.com',
-         *  callback: function(data, error) {
-         *    console.log(data.toSource());
-         *  }
-         * });
-         *
-         * @name emailValidate
-         * @function
+         * <br><br> {@link https://www.edq.com/documentation/apis/}
          *
          * @param {String} emailAddress
          * @param {Number} timeout
@@ -1096,24 +1041,16 @@
         emailValidate: emailValidateHelper.emailValidate.bind(emailValidateHelper)
     };
     /**
-     * @module phone
+     * @module Phone
      */
     EDQ.phone = {
         /**
          * Validates a phone number, and returns any user information, if available
          * This module is a wrapper around the REST calls for PhoneValidatePlus (Reverse Phone Append)
          * Additional documentation for the REST calls can be found here:
-         * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/}
+         * <br><br> {@link https://www.edq.com/documentation/apis/}
          *
-         * @example @executable
-         * EDQ.phone.reversePhoneAppend({
-         *  phoneNumber: '+16171234567',
-         *  callback: function(data, error) {
-         *    console.log(data.toSource());
-         *  }
-         * });
-         *
-         * @name reversePhoneAppend
+         * @name ReversePhoneAppend
          * @function
          *
          * @param {String} phoneNumber
@@ -1126,17 +1063,9 @@
          * Validates a phone number
          * This module is a wrapper around the REST calls for PhoneValidate (Global Phone Validate)
          * Additional documentation for the REST calls can be found here:
-         * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/}
+         * <br><br> {@link https://www.edq.com/documentation/apis/}
          *
-         * @example @executable
-         * EDQ.phone.globalPhoneValidate({
-         *  phoneNumber: '+16171234567',
-         *  callback: function(data, error) {
-         *    console.log(data.toSource());
-         *  }
-         * });
-         *
-         * @name globalPhoneValidate
+         * @name GlobalPhoneValidate
          * @function
          *
          * @param {String} phoneNumber
@@ -1151,7 +1080,7 @@
          * This module is a wrapper around the JSON Global Intuitive calls
          * Additional documentation for the SOAP calls can be found here:
          *
-         * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
+         * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
          *
          * @module globalIntuitive
          */
@@ -1164,7 +1093,7 @@
              *  query: '125 Summer Street',
              *  country: 'USA',
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(data);
              *  }
              * });
              *
@@ -1190,9 +1119,9 @@
              *    var formatUrl = data.results[0].format;
              *
              *    EDQ.address.globalIntuitive.format({
-             *      formatUrl: formatUrl,
+             *      formatUrl: formatUrl
              *      callback: function(data, error) {
-             *        console.log(data.toSource());
+             *        console.log(data);
              *      }
              *    })
              *  }
@@ -1224,7 +1153,7 @@
          * This module is a wrapper around the SOAP XML calls for ProWebOnDemand.
          * Additional documentation for the SOAP calls can be found here:
          *
-         * &lt;br>&lt;br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
+         * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
          *
          * @module proWeb
          */
@@ -1513,33 +1442,3 @@
      * @param {Object} error - an error object, if there's any
      */
 }).call(this);
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 21 2017 13:08:51 GMT-0700 (PDT) using
-    the <a href="https://github.com/tabeth/jsdocplay">jsdocplay</a> theme.
-</footer>
-
-<script>prettyPrint();</script>
-<script>
-  document.querySelectorAll('.executable-example').forEach(function(el) {
-    new jsblock(el, {
-      editable: true,
-      consoleText: "Click 'run' to try the example",
-      runButtonText: "Run",
-      editorTheme: "ace/theme/monokai"
-    })
-  });
-</script>
-<script src="scripts/linenumber.js"></script>
-</body>
-</html>

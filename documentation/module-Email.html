@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Email - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="jsblock/lib/jsblock.js"></script>
+    <script src="scripts/edq.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="jsblock/lib/jsblock.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Email.html">Email</a><ul class='methods'><li data-type='method'><a href="module-Email.html#~emailValidate">emailValidate</a></li></ul></li><li><a href="module-globalIntuitive.html">globalIntuitive</a><ul class='methods'><li data-type='method'><a href="module-globalIntuitive.html#~format">format</a></li><li data-type='method'><a href="module-globalIntuitive.html#~formatById">formatById</a></li><li data-type='method'><a href="module-globalIntuitive.html#~search">search</a></li></ul></li><li><a href="module-Phone.html">Phone</a><ul class='methods'><li data-type='method'><a href="module-Phone.html#~globalPhoneValidate">globalPhoneValidate</a></li><li data-type='method'><a href="module-Phone.html#~reversePhoneAppend">reversePhoneAppend</a></li></ul></li><li><a href="module-proWeb.html">proWeb</a><ul class='methods'><li data-type='method'><a href="module-proWeb.html#~doCanSearch">doCanSearch</a></li><li data-type='method'><a href="module-proWeb.html#~doGetAddress">doGetAddress</a></li><li data-type='method'><a href="module-proWeb.html#~doGetData">doGetData</a></li><li data-type='method'><a href="module-proWeb.html#~doGetDataMapDetail">doGetDataMapDetail</a></li><li data-type='method'><a href="module-proWeb.html#~doGetExampleAddresses">doGetExampleAddresses</a></li><li data-type='method'><a href="module-proWeb.html#~doGetLayouts">doGetLayouts</a></li><li data-type='method'><a href="module-proWeb.html#~doGetLicenseInfo">doGetLicenseInfo</a></li><li data-type='method'><a href="module-proWeb.html#~doGetPromptSet">doGetPromptSet</a></li><li data-type='method'><a href="module-proWeb.html#~doGetSystemInfo">doGetSystemInfo</a></li><li data-type='method'><a href="module-proWeb.html#~doRefine">doRefine</a></li><li data-type='method'><a href="module-proWeb.html#~doSearch">doSearch</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#PRO_WEB_AUTH_TOKEN">PRO_WEB_AUTH_TOKEN</a></li><li><a href="global.html#PRO_WEB_SERVICE_URL">PRO_WEB_SERVICE_URL</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Email</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~emailValidate"><span class="type-signature">(inner) </span>emailValidate<span class="signature">(emailAddress, timeout, verbose, callback)</span><span class="type-signature"> &rarr; {XMLHttpRequest}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="edq.js.html">edq.js</a>, <a href="edq.js.html#line1028">line 1028</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Validates an email address
+This module is a wrapper around the REST calls for Email Validateion
+Additional documentation for the REST calls can be found here:
+<br><br> <a href="https://www.edq.com/documentation/apis/">https://www.edq.com/documentation/apis/</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>emailAddress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>verbose</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">callback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">XMLHttpRequest</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 15 2017 12:34:53 GMT-0700 (PDT) using
+    the <a href="https://github.com/tabeth/jsdocplay">jsdocplay</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script>
+  document.querySelectorAll('.executable-example').forEach(function(el) {
+    new jsblock(el, {
+      editable: true,
+      consoleText: "Click 'run' to try the example",
+      runButtonText: "Run",
+      editorTheme: "ace/theme/monokai"
+    })
+  });
+</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
