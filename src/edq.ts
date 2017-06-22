@@ -1171,7 +1171,7 @@
      * EDQ.email.emailValidate({
      *  emailAddress: 'support@edq.com',
      *  callback: function(data, error) {
-     *    console.log(data.toSource());
+     *    console.log(JSON.stringify(data));
      *  }
      * });
      *
@@ -1203,7 +1203,7 @@
      * EDQ.phone.reversePhoneAppend({
      *  phoneNumber: '+16171234567',
      *  callback: function(data, error) {
-     *    console.log(data.toSource());
+     *    console.log(JSON.stringify(data));
      *  }
      * });
      *
@@ -1227,7 +1227,7 @@
      * EDQ.phone.globalPhoneValidate({
      *  phoneNumber: '+16171234567',
      *  callback: function(data, error) {
-     *    console.log(data.toSource());
+     *    console.log(JSON.stringify(data));
      *  }
      * });
      *
@@ -1262,7 +1262,7 @@
        *  query: '125 Summer Street',
        *  country: 'USA',
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *  }
        * });
        *
@@ -1291,7 +1291,7 @@
        *    EDQ.address.globalIntuitive.format({
        *      formatUrl: formatUrl,
        *      callback: function(data, error) {
-       *        console.log(data.toSource());
+       *        console.log(JSON.stringify(data));
        *      }
        *    })
        *  }
@@ -1340,7 +1340,7 @@
        *  engineOptions: {},
        *  layout: 'EDQDemoLayout',
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *  }
        * });
        *
@@ -1376,7 +1376,7 @@
        *    moniker: data.Envelope.Body.QASearchResult.QAPicklist.FullPicklistMoniker,
        *    layout: 'EDQDemoLayout',
        *    callback: function(data, error) {
-       *      console.log(data.toSource());
+       *      console.log(JSON.stringify(data));
        *    }
        *   });
        *  }
@@ -1399,7 +1399,7 @@
        * @example @executable
        * EDQ.address.proWeb.doGetData({
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *  }
        * });
        *
@@ -1445,7 +1445,7 @@
        *  country: 'USA',
        *  layout: 'AllElements',
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *  }
        * });
        *
@@ -1467,7 +1467,7 @@
        * EDQ.address.proWeb.doGetLayouts({
        *  country: 'USA',
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *  }
        * });
        *
@@ -1515,7 +1515,7 @@
        *  engineType: 'Verification',
        *  promptSet: 'Default',
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *    console.log(error);
        *  }
        * });
@@ -1539,7 +1539,7 @@
        * @example @executable
        * EDQ.address.proWeb.doGetSystemInfo({
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *    console.log(error);
        *  }
        * });
@@ -1565,7 +1565,7 @@
        *  refinement: '',
        *  formattedAddressInPicklist: false,
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *    console.log(error);
        *  }
        * });
@@ -1596,7 +1596,7 @@
        *  addressQuery: '125 Summer Street, Boston MA 02110',
        *  formattedAddressInPicklist: false,
        *  callback: function(data, error) {
-       *    console.log(data.toSource());
+       *    console.log(JSON.stringify(data));
        *    console.log(error);
        *  }
        * });
