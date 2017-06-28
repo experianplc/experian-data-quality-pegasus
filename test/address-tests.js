@@ -273,3 +273,80 @@ QUnit.test('Format address by URL functions as intended', function(assert) {
     callback: addressFailCallback.bind({assert: assert, done: searchFail})
   });
 });
+
+QUnit.module('Address.ProWebOnPremise tests');
+
+var goodLayout = '( QAS Standard Layout )';
+var badLayout = 'blah';
+
+QUnit.begin(function() {
+});
+
+QUnit.testStart(function() {
+});
+
+QUnit.test('DoSearch functions as intended', function(assert) {
+  window.EdqConfig = {};
+  window.EdqConfig.PRO_WEB_SERVICE_URL = 'http://bosse:2727/';
+
+  var proWebSuccess = assert.async();
+  var proWebFail = assert.async();
+
+  EDQ.address.proWebOnPremise.doSearch({
+    onPremise: true,
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    layout: goodLayout,
+    addressQuery: '125 Summer Street, Boston MA',
+    formattedAddressInPicklist: false,
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doSearch({
+    onPremise: true,
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    layout: badLayout,
+    addressQuery: '125 Summer Street, Boston MA',
+    formattedAddressInPicklist: false,
+    callback: addressFailCallback.bind({assert: assert, done: proWebFail})
+  });
+
+});
+
+QUnit.test('DoRefine functions as intended', function(assert) {
+  var proWebSuccess = assert.async();
+  var proWebFail    = assert.async();
+
+  EDQ.address.proWebOnPremise.doSearch({
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    layout: goodLayout,
+    addressQuery: '02110',
+    formattedAddressInPicklist: false,
+    callback: function(data) {
+      EDQ.address.proWebOnPremise.doRefine({
+        country: 'USA',
+        refineOptions: {},
+        layout: goodLayout,
+        moniker: data.Envelope.Body.QASearchResult.QAPicklist.FullPicklistMoniker,
+        refinement: '',
+        formattedAddressInPicklist: false,
+        callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+      });
+    }
+ });
+
+  EDQ.address.proWebOnPremise.doRefine({
+    country: 'USA',
+    refineOptions: {},
+    layout: goodLayout,
+    moniker: 'USA|b0a60fcd-9dda-4629-a233-a356d35e9aec|7.610jTUSADwHhBwAAAAACAQAAQAAAAAEAAAD3QQAAAAAAADAyMTEwAA--',
+    refinement: '',
+    formattedAddressInPicklist: false,
+    callback: addressFailCallback.bind({assert: assert, done: proWebFail})
+  });
+});
