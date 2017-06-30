@@ -26,6 +26,7 @@ QUnit.test('DoCanSearch functions as intended', function(assert) {
   EDQ.address.proWeb.doCanSearch({
     country: 'USA',
     engineOptions: {},
+    engineType: 'Verification',
     layout: 'EDQDemoLayout',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
@@ -33,6 +34,7 @@ QUnit.test('DoCanSearch functions as intended', function(assert) {
   EDQ.address.proWeb.doCanSearch({
     country: '',
     engineOptions: {},
+    engineType: 'Verification',
     layout: '',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
@@ -293,7 +295,6 @@ QUnit.test('DoSearch functions as intended', function(assert) {
   var proWebFail = assert.async();
 
   EDQ.address.proWebOnPremise.doSearch({
-    onPremise: true,
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -304,7 +305,6 @@ QUnit.test('DoSearch functions as intended', function(assert) {
   });
 
   EDQ.address.proWebOnPremise.doSearch({
-    onPremise: true,
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -325,10 +325,11 @@ QUnit.test('DoRefine functions as intended', function(assert) {
     engineOptions: {},
     engineType: 'Verification',
     layout: goodLayout,
-    addressQuery: '02110',
+    addressQuery: '125 Summer Street, Boston MA 02110',
     formattedAddressInPicklist: false,
     callback: function(data) {
       EDQ.address.proWebOnPremise.doRefine({
+        onPremise: true,
         country: 'USA',
         refineOptions: {},
         layout: goodLayout,
@@ -350,3 +351,224 @@ QUnit.test('DoRefine functions as intended', function(assert) {
     callback: addressFailCallback.bind({assert: assert, done: proWebFail})
   });
 });
+
+QUnit.test('DoGetSystemInfo functions as intended', function(assert) {
+  var proWebSuccess = assert.async(2);
+
+  EDQ.address.proWebOnPremise.doGetSystemInfo({
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doGetSystemInfo({
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+});
+
+QUnit.test('DoPromptSet functions as intended', function(assert) {
+  var proWebSuccess = assert.async();
+  var proWebFail    = assert.async();
+
+  EDQ.address.proWebOnPremise.doGetPromptSet({
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    promptSet: 'Default',
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doGetPromptSet({
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    promptSet: 'Defaultp',
+    callback: addressFailCallback.bind({assert: assert, done: proWebFail})
+  });
+
+});
+
+QUnit.test('DoGetLayouts functions as intended', function(assert) {
+  var proWebSuccess = assert.async();
+  var proWebFail    = assert.async();
+
+  EDQ.address.proWebOnPremise.doGetLayouts({
+    country: 'USA',
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doGetLayouts({
+    country: 'USAp',
+    callback: addressFailCallback.bind({assert: assert, done: proWebFail})
+  });
+});
+
+QUnit.test('DoGetLicenseInfo functions as intended', function(assert) {
+  var proWebSuccess = assert.async();
+
+  EDQ.address.proWebOnPremise.doGetLicenseInfo({
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+});
+
+QUnit.test('DoGetExampleAddresses functions as intended', function(assert) {
+  var proWebSuccess = assert.async();
+  var proWebFail    = assert.async();
+
+  EDQ.address.proWebOnPremise.doGetExampleAddresses({
+    country: 'USA',
+    layout: goodLayout,
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doGetExampleAddresses({
+    country: 'USA',
+    layout: badLayout,
+    callback: addressFailCallback.bind({assert: assert, done: proWebFail})
+  });
+});
+
+QUnit.test('DoGetAddress functions as intended', function(assert) {
+  var proWebSuccess = assert.async();
+  var proWebFail    = assert.async();
+
+  EDQ.address.proWebOnPremise.doSearch({
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    layout: goodLayout,
+    addressQuery: '125 Summer Street, Boston MA 02110',
+    formattedAddressInPicklist: false,
+
+    callback: function(data) {
+      EDQ.address.proWebOnPremise.doGetAddress({
+        moniker: data.Envelope.Body.QASearchResult.QAPicklist.FullPicklistMoniker,
+        layout: goodLayout,
+        callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+      });
+    }
+  });
+
+  EDQ.address.proWebOnPremise.doGetAddress({
+    moniker: 'dUSA|5133da03-d155-42b1-aa14-8f7237ae901c|7.610FOUSADwHhBwAAAAABAwEAAAADmDtekgAhEAIYACAAAAAAAAAAAP..AAAAAAD.....AAAAAAAAAAAAAAAAAAAARXhwZXJpYW4A',
+    layout: 'EDQDemoLayout',
+    callback: addressFailCallback.bind({assert: assert, done: proWebFail})
+  });
+
+});
+
+QUnit.test('DoCanSearch functions as intended', function(assert) {
+  let proWebSuccess = assert.async(2)
+
+  EDQ.address.proWebOnPremise.doCanSearch({
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    layout: goodLayout,
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doCanSearch({
+    country: '',
+    engineOptions: {},
+    engineType: 'Verification',
+    layout: badLayout,
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+});
+
+QUnit.test('DoGetData functions as intended', function(assert) {
+  var proWebSuccess = assert.async(2);
+
+  EDQ.address.proWebOnPremise.doGetData({
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doGetData({
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+});
+
+
+QUnit.test('DoGetDataMapDetail functions as intended', function(assert) {
+  var proWebSuccess = assert.async(2);
+
+  EDQ.address.proWebOnPremise.doGetDataMapDetail({
+    dataMap: 'USA',
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doGetDataMapDetail({
+    dataMap: '',
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+});
+
+QUnit.test('DoGetDataHashCode functions as intended', function(assert) {
+  var proWebSuccess = assert.async(2);
+
+  EDQ.address.proWebOnPremise.doGetDataHashCode({
+    unlockCode: '',
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doGetDataHashCode({
+    dataMap: 'asdf',
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+});
+
+QUnit.test('DoUnlockDPV functions as intended', function(assert) {
+  var proWebSuccess = assert.async(2);
+
+  EDQ.address.proWebOnPremise.doUnlockDPV({
+    unlockCode: '',
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doUnlockDPV({
+    unlockCode: 'asdf',
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+});
+
+QUnit.test('DoGetDPVStatus functions as intended', function(assert) {
+  var proWebSuccess = assert.async(2);
+
+  EDQ.address.proWebOnPremise.doGetDPVStatus({
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doGetDPVStatus({
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+});
+
+QUnit.test('DoBulkSearch functions as intended', function(assert) {
+  var proWebSuccess = assert.async(2);
+
+  EDQ.address.proWebOnPremise.doBulkSearch({
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    layout: goodLayout,
+    formattedAddressInPicklist: false,
+    searches: ['125 Summer Street, Boston MA 02110', '53 State Street, Boston MA 02110'],
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+
+  EDQ.address.proWebOnPremise.doBulkSearch({
+    country: 'USA',
+    engineOptions: {},
+    engineType: 'Verification',
+    layout: goodLayout,
+    formattedAddressInPicklist: false,
+    searches: ['125 Summer Street, Boston MA 02110'],
+    callback: addressCallback.bind({assert: assert, done: proWebSuccess})
+  });
+});
+

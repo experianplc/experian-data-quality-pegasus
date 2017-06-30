@@ -52,6 +52,7 @@
     this.soapActionUrlPrefix = soapActionUrlPrefix;
 
     /*
+     * @param {Boolean} onPremise
      * @param {String} country
      * @param {Object} engineOptions
      * @param {String} engineType
@@ -60,9 +61,9 @@
      *
      * @returns {XMLHttpRequest}
      */
-		this.doCanSearch = function({country, engineOptions, engineType, layout, callback}) {
+		this.doCanSearch = function({onPremise, country, engineOptions, engineType, layout, callback}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoCanSearch`;
-			const xmlRequest = this.buildDoCanSearch({country, engineOptions, engineType, layout, callback});
+			const xmlRequest = this.buildDoCanSearch({country, engineOptions, engineType, layout, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -73,9 +74,9 @@
      *
      * @returns {XMLHttpRequest}
      */
-		this.doGetAddress = function({layout, moniker, callback}) {
+		this.doGetAddress = function({layout, moniker, callback, onPremise}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetAddress`;
-			const xmlRequest = this.buildDoGetAddressMessage({layout, moniker, callback});
+			const xmlRequest = this.buildDoGetAddressMessage({layout, moniker, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -96,58 +97,159 @@
      *
      * @returns {XMLHttpRequest}
      */
-		this.doGetDataMapDetail = function({dataMap, callback}) {
+		this.doGetDataMapDetail = function({dataMap, callback, onPremise}) {
       if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
         throw "This SOAP method is not supported in this version of QAS Pro On Demand";
       }
 
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDataMapDetail`;
-			const xmlRequest = this.buildDoGetDataMapDetail({dataMap, callback});
+			const xmlRequest = this.buildDoGetDataMapDetail({dataMap, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
     /*
+     * @param {Boolean} onPremise
+     * @param {String} dataMap
+     * @param {Function} callback
+     *
+     * @returns {XMLHttpRequest}
+     */
+		this.doGetDataHashCode = function({onPremise, callback}) {
+      if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
+        throw "This SOAP method is not supported in this version of QAS Pro On Demand";
+      }
+
+			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDataHashCode`;
+			const xmlRequest = this.buildDoGetDataHashCode(onPremise);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+		};
+
+    /*
+     * @param {Boolean} onPremise
+     * @param {String} unlockCode
+     * @param {Function} callback
+     *
+     * @returns {XMLHttpRequest}
+     */
+    this.doUnlockDPV = function({onPremise, unlockCode, callback}) {
+      if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
+        throw "This SOAP method is not supported in this version of QAS Pro On Demand";
+      }
+
+			const soapActionUrl = `${soapActionUrlPrefix}/DoUnlockDPV`;
+			const xmlRequest = this.buildDoUnlockDPV({unlockCode, onPremise});
+			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+    };
+
+    /*
+     * @param {Boolean} onPremise
+     * @param {Function} callback
+     *
+     * @returns {XMLHttpRequest}
+     */
+    this.doGetDPVStatus = function({onPremise, callback}) {
+      if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
+        throw "This SOAP method is not supported in this version of QAS Pro On Demand";
+      }
+
+			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDPVStatus`;
+			const xmlRequest = this.buildDoGetDPVStatus({onPremise});
+			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+    };
+
+    /*
+     * @param {Boolean} onPremise
      * @param {String} country
      * @param {String} layout
      * @param {Function} callback
      *
      * @returns {XMLHttpRequest}
      */
-		this.doGetExampleAddresses = function({country, layout, callback}) {
+		this.doGetExampleAddresses = function({onPremise, country, layout, callback}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetExampleAddresses`;
-			const xmlRequest = this.buildDoGetExampleAddressesMessage({country, layout, callback});
+			const xmlRequest = this.buildDoGetExampleAddressesMessage({country, layout, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
-
 		};
+
+    /*
+     * @param {Boolean} onPremise
+     * @param {Array<String>} searches
+     * @param {Function} callback
+     *
+     * @returns {XMLHttpRequest}
+     */
+		this.doBulkSearch = function({
+      onPremise,
+      country,
+      engineOptions,
+      engineType,
+      layout,
+      searches,
+      formattedAddressInPicklist,
+      callback
+    }) {
+			const soapActionUrl = `${soapActionUrlPrefix}/DoBulkSearch`;
+			const xmlRequest = this.buildDoBulkSearch({
+        searches,
+        onPremise,
+        country,
+        engineOptions,
+        engineType,
+        layout,
+        formattedAddressInPicklist
+      });
+			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+		};
+
+    this.buildDoBulkSearch = function({searches, country, engineOptions, engineType, layout, onPremise}) {
+			const xmlString =
+				'<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
+				'<soapenv:Body>' +
+				`<${onPremise ? 'web' : 'ond'}:QABulkSearch ${onPremise ? 'Language' : 'Localisation'}="">` +
+				this._buildSoapCountryString(country, onPremise) +
+				this._buildSoapEngineString({engineOptions, engineType, onPremise}) +
+				this._buildSoapLayoutString(layout, onPremise) +
+        `<${onPremise ? 'web' : 'ond'}:BulkSearchTerm Count="">` +
+				searches.map((search) => { return this._buildSoapSearchString(search, onPremise) }).join('') +
+        `</${onPremise ? 'web' : 'ond'}:BulkSearchTerm>` +
+				`</${onPremise ? 'web' : 'ond'}:QABulkSearch>` +
+				'</soapenv:Body>' +
+				'</soapenv:Envelope>';
+
+			return xmlString;
+    }
 
     /*
      * @param {String} country
+     * @param {Boolean} onPremise
      * @param {Function} callback
      *
      * @returns {XMLHttpRequest}
      */
-		this.doGetLayouts =  function({country, callback}) {
+		this.doGetLayouts =  function({country, onPremise, callback}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetLayouts`;
-			const xmlRequest = this.buildDoGetLayoutsMessage({country, callback});
+			const xmlRequest = this.buildDoGetLayoutsMessage({country, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
     /*
+     * @param {Boolean} onPremise
      * @param {Function} callback
      *
      * @returns {XMLHttpRequest}
      */
-		this.doGetLicenseInfo = function({callback}) {
+		this.doGetLicenseInfo = function({callback, onPremise}) {
       if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
         throw "This SOAP method is not supported in this version of QAS Pro On Demand";
       }
 
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetLicenseInfo`;
-			const xmlRequest = this.buildDoGetLicenseInfoMessage({callback});
+			const xmlRequest = this.buildDoGetLicenseInfoMessage({onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
     /*
+     * @param {Boolean} onPremise
      * @param {String} country
      * @param {Object} engineOptions
      * @param {String} engineType
@@ -156,20 +258,21 @@
      *
      * @returns {XMLHttpRequest}
      */
-		this.doGetPromptSet = function({country, engineOptions, engineType, promptSet, callback}) {
+		this.doGetPromptSet = function({country, engineOptions, engineType, promptSet, callback, onPremise}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetPromptSet`;
-			const xmlRequest = this.buildDoGetPromptSetMessage({country, engineOptions, engineType, promptSet, callback});
+			const xmlRequest = this.buildDoGetPromptSetMessage({country, engineOptions, engineType, promptSet, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
     /*
+     * @param {Boolean} onPremise
      * @param {Function} callback
      *
      * @returns {XMLHttpRequest}
      */
-    this.doGetSystemInfo = function({callback}) {
+    this.doGetSystemInfo = function({callback, onPremise}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetSystemInfo`;
-			const xmlRequest = this.buildDoGetSystemInfoMessage();
+			const xmlRequest = this.buildDoGetSystemInfoMessage(onPremise);
 			this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
 
@@ -249,18 +352,19 @@
 		 * @param {String} engineType
 		 * @param {String} layout
 		 * @param {String} doSearch
+		 * @param {Boolean} onPremise
 		 *
 		 * @returns {String}
 		 */
 		this.buildDoCanSearch = function({country, engineOptions, engineType, layout, onPremise}) {
 			const xmlString =
-				'<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+				'<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
 				'<soapenv:Body>' +
-				'<ond:QASearch Localisation="" RequestTag="">' +
+				`<${onPremise ? 'web' : 'ond'}:QACanSearch ${onPremise ? 'Language' : 'Localisation'}="" RequestTag="">` +
 				this._buildSoapCountryString(country, onPremise) +
-				this._buildSoapEngineString({engineOptions, engineType}, onPremise) +
+				this._buildSoapEngineString({engineOptions, engineType, onPremise}) +
 				this._buildSoapLayoutString(layout, onPremise) +
-				'</ond:QASearch>' +
+				`</${onPremise ? 'web' : 'ond'}:QACanSearch>` +
 				'</soapenv:Body>' +
 				'</soapenv:Envelope>';
 
@@ -269,18 +373,54 @@
 
 		/*
      * @param {String} layout
+     * @param {String} onPremise
 		 * @param {String} moniker
 		 *
 		 * @returns {String}
 		 */
-    this.buildDoGetAddressMessage = function({layout, moniker}) {
+    this.buildDoGetAddressMessage = function({layout, moniker, onPremise}) {
       let xmlString =
-        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
         '<soapenv:Body>' +
-        '<ond:QAGetAddress Localisation="" RequestTag="">' +
-        this._buildSoapLayoutString(layout) +
-        '<ond:Moniker>' + moniker + '</ond:Moniker>' +
-        '</ond:QAGetAddress>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetAddress ${onPremise ? 'Language' : 'Localisation'}="" RequestTag="">` +
+        this._buildSoapLayoutString(layout, onPremise) +
+        this._buildSoapMonikerString(moniker, onPremise) +
+        `</${onPremise ? 'web' : 'ond'}:QAGetAddress>` +
+        '</soapenv:Body>' +
+        '</soapenv:Envelope>';
+
+      return xmlString;
+    };
+
+    /*
+     * @param {Boolean} onPremise
+     * @param {String} unlockCode
+     *
+     * @returns {String}
+     */
+    this.buildDoUnlockDPV = function({onPremise, unlockCode}) {
+      let xmlString =
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
+        '<soapenv:Body>' +
+        `<${onPremise ? 'web' : 'ond'}:QAUnlockDPV>` +
+        `<${onPremise ? 'web' : 'ond'}:UnlockCode>${unlockCode}</${onPremise ? 'web' : 'ond'}:UnlockCode>` +
+        `</${onPremise ? 'web' : 'ond'}:QAUnlockDPV>` +
+        '</soapenv:Body>' +
+        '</soapenv:Envelope>';
+
+      return xmlString;
+    };
+
+    /*
+     * @param {Boolean} onPremise
+     *
+     * @returns {String}
+     */
+    this.buildDoGetDPVStatus = function({onPremise}) {
+      let xmlString =
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
+        '<soapenv:Body>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetDPVStatus/>` +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
 
@@ -288,19 +428,20 @@
     };
 
 		/*
+     * @param {Boolean} onPremise
      * @param {String} country
 		 * @param {String} layout
 		 *
 		 * @returns {String}
 		 */
-    this.buildDoGetExampleAddressesMessage = function({country, layout}) {
+    this.buildDoGetExampleAddressesMessage = function({country, layout, onPremise}) {
       let xmlString =
-        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
         '<soapenv:Body>' +
-        '<ond:QAGetExampleAddresses Localisation="" RequestTag="">' +
-        this._buildSoapCountryString(country) +
-        this._buildSoapLayoutString(layout) +
-        '</ond:QAGetExampleAddresses>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetExampleAddresses ${onPremise ? 'Language' : 'Localisation'}="" RequestTag="">` +
+        this._buildSoapCountryString(country, onPremise) +
+        this._buildSoapLayoutString(layout, onPremise) +
+        `</${onPremise ? 'web' : 'ond'}:QAGetExampleAddresses>` +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
 
@@ -308,14 +449,16 @@
     };
 
 		/*
+     * @param {Boolean} onPremise
+     *
 		 * @returns {String}
 		 */
-    this.buildDoGetDataMessage = function() {
+    this.buildDoGetDataMessage = function(onPremise) {
       let xmlString =
-        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
         '<soapenv:Body>' +
-        '<ond:QAGetData Localisation="" >' +
-        '</ond:QAGetData>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetData ${onPremise ? 'Language' : 'Localisation'}="" >` +
+        `</${onPremise ? 'web' :'ond'}:QAGetData>` +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
 
@@ -323,17 +466,16 @@
     };
 
     /*
-     * @param {String} dataMap
+     * @param {Boolean} onPremise
      *
      * @returns {String}
      */
-    this.buildDoGetDataMapDetail = function({dataMap}) {
+    this.buildDoGetDataHashCode = function(onPremise) {
       let xmlString =
-        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
         '<soapenv:Body>' +
-        '<ond:QAGetDataMapDetail Localisation="">' +
-        this._buildSoapDataMapString(dataMap) +
-        '</ond:QAGetDataMapDetail>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetDataHashCode ${onPremise ? 'Language' : 'Localisation'}="">` +
+        `</${onPremise ? 'web' : 'ond'}:QAGetDataHashCode>` +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
 
@@ -341,13 +483,33 @@
     };
 
     /*
+     * @param {Boolean} onPremise
+     * @param {String} dataMap - can be a country, e.g. USA
+     *
      * @returns {String}
      */
-    this.buildDoGetLicenseInfoMessage = function() {
+    this.buildDoGetDataMapDetail = function({dataMap, onPremise}) {
       let xmlString =
-        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
         '<soapenv:Body>' +
-        '<ond:QAGetLicenseInfo Localisation=""/>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetDataMapDetail ${onPremise ? 'Language' : 'Localisation'}="">` +
+        this._buildSoapDataMapString(dataMap, onPremise) +
+        `</${onPremise ? 'web' : 'ond'}:QAGetDataMapDetail>` +
+        '</soapenv:Body>' +
+        '</soapenv:Envelope>';
+
+      return xmlString;
+    };
+
+    /*
+     * @param {Boolean} onPremise
+     * @returns {String}
+     */
+    this.buildDoGetLicenseInfoMessage = function({onPremise}) {
+      let xmlString =
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
+        '<soapenv:Body>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetLicenseInfo ${onPremise ? 'Language' : 'Localisation'}=""/>` +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
 
@@ -355,17 +517,18 @@
     },
 
     /*
+     * @param {Boolean} onPremise
      * @param {String} country
      *
      * @returns {String}
      */
-    this.buildDoGetLayoutsMessage = function({country}) {
+    this.buildDoGetLayoutsMessage = function({country, onPremise}) {
       let xmlString =
-        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
         '<soapenv:Body>' +
-        '<ond:QAGetLayouts Localisation="">' +
-        this._buildSoapCountryString(country) +
-        '</ond:QAGetLayouts>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetLayouts ${onPremise ? 'Language' : 'Localisation'}="">` +
+        this._buildSoapCountryString(country, onPremise) +
+        `</${onPremise ? 'web' : 'ond'}:QAGetLayouts>` +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
 
@@ -373,6 +536,7 @@
     };
 
     /*
+     * @param {Boolean} onPremise
      * @param {String} country
      * @param {Object} engineOptions
      * @param {String} engineType
@@ -380,15 +544,15 @@
      *
      * @returns {String}
      */
-    this.buildDoGetPromptSetMessage = function({country, engineOptions, engineType, promptSet}) {
+    this.buildDoGetPromptSetMessage = function({country, engineOptions, engineType, promptSet, onPremise}) {
       let xmlString =
-        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
         '<soapenv:Body>' +
-        '<ond:QAGetPromptSet Localisation="">' +
-        this._buildSoapCountryString(country) +
-        this._buildSoapEngineString({engineOptions, engineType}) +
-        this._buildSoapPromptSetString(promptSet) +
-        '</ond:QAGetPromptSet>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetPromptSet ${onPremise ? 'Language' : 'Localisation'}="">` +
+        this._buildSoapCountryString(country, onPremise) +
+        this._buildSoapEngineString({engineOptions, engineType, onPremise}) +
+        this._buildSoapPromptSetString(promptSet, onPremise) +
+        `</${onPremise ? 'web' : 'ond'}:QAGetPromptSet>` +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
 
@@ -396,13 +560,14 @@
     };
 
     /*
+     * @param {Boolean} onPremise
      * @returns {String}
      */
-    this.buildDoGetSystemInfoMessage = function() {
+    this.buildDoGetSystemInfoMessage = function(onPremise) {
       let xmlString =
-        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
         '<soapenv:Body>' +
-        '<ond:QAGetSystemInfo Localisation=""/>' +
+        `<${onPremise ? 'web' : 'ond'}:QAGetSystemInfo ${onPremise ? 'Language' : 'Localisation'}=""/>` +
         '</soapenv:Body>' +
         '</soapenv:Envelope>';
 
@@ -454,7 +619,7 @@
 				'<soapenv:Body>' +
 				`<${onPremise ? 'web' : 'ond'}:QASearch ${onPremise ? 'Language' : 'Localisation'}="" RequestTag="">` +
 				this._buildSoapCountryString(country, onPremise) +
-				this._buildSoapEngineString({engineOptions, engineType}, onPremise) +
+				this._buildSoapEngineString({engineOptions, engineType, onPremise}) +
 				this._buildSoapLayoutString(layout, onPremise) +
 				this._buildSoapSearchString(addressQuery, onPremise) +
 				this._buildSoapFormatString(formattedAddressInPicklist, onPremise) +
@@ -520,7 +685,6 @@
 		 * @returns {Object} - a new object that's similar to 'engineOptions', except there are no
 		 * undefined values, and instead are replaced with empty strings.
 		 */
-
 		this._cleanEngineOptions = function({flatten, intensity, promptSet, threshold, timeout}) {
 			return {
 				flatten:   flatten   || true,
@@ -562,16 +726,13 @@
 		};
 
 		/*
-     * @param {Object} object.engineOptions - contains an object that has the engine options (see #_cleanEngineOptions)
-		 * @param {String} object.engineType
+     * @param {Object} engineOptions - contains an object that has the engine options (see #_cleanEngineOptions)
+		 * @param {String} engineType
      * @param {Boolean} onPremise
      *
 		 * @returns {String}
 		 */
-		this._buildSoapEngineString = function (object, onPremise) {
-			let engineOptions = object.engineOptions;
-			let engineType    = object.engineType;
-
+		this._buildSoapEngineString = function ({engineOptions, engineType, onPremise}) {
 			let result = this._cleanEngineOptions(engineOptions);
 
 			let flatten   = result.flatten;
@@ -582,11 +743,11 @@
 
 			var engineSoapString =
 				`<${onPremise ? 'web' : 'ond'}:Engine` + ' ' +
-				'Flatten='   + '\'' + flatten   + '\' ' +
-				'Intensity=' + '\'' + intensity + '\' ' +
-				'PromptSet=' + '\'' + promptSet + '\' ' +
-				'Threshold=' + '\'' + threshold + '\' ' +
-				'Timeout='   + '\'' + timeout   + '\' ' +
+				`Flatten='${flatten}' ` +
+				`Intensity='${intensity}' ` +
+				`PromptSet='${promptSet}' ` +
+				`Threshold='${threshold}' ` +
+				`Timeout='${timeout}'` +
 				'>' + engineType + `</${onPremise ? 'web' : 'ond'}:Engine>`;
 
 			return engineSoapString;
@@ -649,8 +810,8 @@
      *
 		 * @returns {String}
 		 */
-		this._buildSoapPromptSetString = function(promptSet) {
-			return '<ond:PromptSet>' + promptSet + '</ond:PromptSet>';
+		this._buildSoapPromptSetString = function(promptSet, onPremise) {
+			return `<${onPremise ? 'web' : 'ond'}:PromptSet>${promptSet}</${onPremise ? 'web' : 'ond'}:PromptSet>`;
 		};
 
 		/* 
@@ -659,7 +820,7 @@
      *
 		 * @returns {String}
 		 */
-		this._buildSoapCountryString = function(country, onPremise = false) {
+		this._buildSoapCountryString = function(country, onPremise) {
       if (onPremise) {
         return '<web:Country>' + country + '</web:Country>';
       }
@@ -668,12 +829,13 @@
 		};
 
     /*
+     * @param {Boolean} onPremise
      * @param {String} dataMap
      *
      * @returns {String}
      */
-    this._buildSoapDataMapString = function(dataMap) {
-      return '<ond:DataMap>' + dataMap + '</ond:DataMap>';
+    this._buildSoapDataMapString = function(dataMap, onPremise) {
+      return `<${onPremise ? 'web' :'ond'}:DataMap>${dataMap}</${onPremise ? 'web' : 'ond'}:DataMap>`;
     }
 
     /*** Taken from X2JS ***/
@@ -1369,7 +1531,73 @@
       doRefine(args) {
         args['onPremise'] = true;
         return proWebOnPremiseHelper.doRefine(args);
+      },
+
+      doGetSystemInfo(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetSystemInfo(args);
+      },
+
+      doGetPromptSet(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetPromptSet(args);
+      },
+
+      doGetLicenseInfo(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetLicenseInfo(args);
+      },
+
+      doGetLayouts(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetLayouts(args);
+      },
+
+      doGetExampleAddresses(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetExampleAddresses(args);
+      },
+
+      doGetAddress(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetAddress(args);
+      },
+
+      doCanSearch(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doCanSearch(args);
+      },
+
+      doGetData(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetData(args);
+      },
+
+      doGetDataMapDetail(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetDataMapDetail(args);
+      },
+
+      doGetDataHashCode(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetDataHashCode(args);
+      },
+
+      doUnlockDPV(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doUnlockDPV(args);
+      },
+
+      doGetDPVStatus(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetDPVStatus(args);
+      },
+
+      doBulkSearch(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doBulkSearch(args);
       }
+
     },
 
     /**
@@ -1464,11 +1692,12 @@
       doGetData: proWebHelper.doGetData.bind(proWebHelper),
 
       /**
-       * NOTE: This does not function on the latest version of ProWeb
+       * NOTE: This only functions on the on premise version of ProWeb
        *
        * @example @executable
        * try {
        *  EDQ.address.proWeb.doGetDataMapDetail({
+       *    dataMap: 'USA',
        *    callback: function(data, error) {
        *      // This function does not work
        *      console.log(data);
