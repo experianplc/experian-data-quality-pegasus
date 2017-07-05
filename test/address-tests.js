@@ -1,5 +1,3 @@
-/* Contains the unit tests */
-
 var addressFailCallback = function(data, error) {
   this.assert.equal(!Boolean(data) && error.status !== 200, true, "The failure condition is caught successfully");
   this.done();
@@ -510,12 +508,10 @@ QUnit.test('DoGetDataHashCode functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
   EDQ.address.proWebOnPremise.doGetDataHashCode({
-    unlockCode: '',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
   EDQ.address.proWebOnPremise.doGetDataHashCode({
-    dataMap: 'asdf',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 

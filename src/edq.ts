@@ -1520,9 +1520,21 @@
      *
      * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
      *
-     * @module proWebOnPremise
+     * @module  proWebOnPremise
+     * @borrows module:proWeb~doSearch as doSearch
+     * @borrows module:proWeb~doRefine as doRefine
+     * @borrows module:proWeb~doGetSystemInfo as doGetSystemInfo
+     * @borrows module:proWeb~doGetPromptSet as doGetPromptSet
+     * @borrows module:proWeb~doGetLicenseInfo as doGetLicenseInfo
+     * @borrows module:proWeb~doGetLayouts as doGetLayouts
+     * @borrows module:proWeb~doGetExampleAddresses as doGetExampleAddresses
+     * @borrows module:proWeb~doGetDataMapDetail as doGetDataMapDetail
+     * @borrows module:proWeb~doGetData as doGetData
+     * @borrows module:proWeb~doGetAddress as doGetAddress
+     * @borrows module:proWeb~doCanSearch as doCanSearch
      */
     proWebOnPremise: {
+
       doSearch(args) {
         args['onPremise'] = true;
         return proWebOnPremiseHelper.doSearch(args);
@@ -1558,6 +1570,16 @@
         return proWebOnPremiseHelper.doGetExampleAddresses(args);
       },
 
+      doGetDataMapDetail(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetDataMapDetail(args);
+      },
+
+      doGetData(args) {
+        args['onPremise'] = true;
+        return proWebOnPremiseHelper.doGetData(args);
+      },
+
       doGetAddress(args) {
         args['onPremise'] = true;
         return proWebOnPremiseHelper.doGetAddress(args);
@@ -1568,33 +1590,105 @@
         return proWebOnPremiseHelper.doCanSearch(args);
       },
 
-      doGetData(args) {
-        args['onPremise'] = true;
-        return proWebOnPremiseHelper.doGetData(args);
-      },
-
-      doGetDataMapDetail(args) {
-        args['onPremise'] = true;
-        return proWebOnPremiseHelper.doGetDataMapDetail(args);
-      },
-
+      /**
+       * Gets the hash code unique to unlockCode and server instance. Currently unsupported.
+       *
+       * @example @executable
+       * EDQ.address.proWebOnPremise.doGetDataHashCode({
+       *  callback: function(data, error) {
+       *    console.log(JSON.stringify(data));
+       *  }
+       * });
+       *
+       * @name doGetDataHashCode
+       * @function
+       *
+       * @param {callback} args.callback
+       *
+       * @returns {XMLHttpRequest}
+       */
       doGetDataHashCode(args) {
         args['onPremise'] = true;
         return proWebOnPremiseHelper.doGetDataHashCode(args);
       },
 
+      /**
+       * Unlocks DPV after encountering a 'seed' address
+       *
+       * @example @executable
+       * EDQ.address.proWebOnPremise.doUnlockDPV({
+       *  unlockCode: '',
+       *  callback: function(data, error) {
+       *    console.log(JSON.stringify(data));
+       *  }
+       * });
+       *
+       * @name doUnlockDPV
+       * @function
+       *
+       * @param {String} args.unlockCode
+       * @param {callback} args.callback
+       *
+       * @returns {XMLHttpRequest}
+       */
       doUnlockDPV(args) {
         args['onPremise'] = true;
         return proWebOnPremiseHelper.doUnlockDPV(args);
       },
 
+      /**
+       * Used to determine the DPV status
+       *
+       * @example @executable
+       * EDQ.address.proWebOnPremise.doGetDPVStatus({
+       *  callback: function(data, error) {
+       *    console.log(JSON.stringify(data));
+       *  }
+       * });
+       *
+       * @name doGetDPVStatus
+       * @function
+       *
+       * @param {callback} args.callback
+       *
+       * @returns {XMLHttpRequest}
+       */
       doGetDPVStatus(args) {
         args['onPremise'] = true;
         return proWebOnPremiseHelper.doGetDPVStatus(args);
       },
 
+      /**
+       * Verify a batch of addresses using the verification engine
+       *
+       * @example @executable
+       * EDQ.address.proWebOnPremise.doBulkSearch({
+       *  country: 'USA',
+       *  engineOptions: {},
+       *  layout: '( QAS Standard Layout )',
+       *  searches: ['125 Summer Street, Boston MA', '53 State Street, Boston 02110'],
+       *  formattedAddressInPicklist: false,
+       *  callback: function(data, error) {
+       *    console.log(JSON.stringify(data));
+       *  }
+       * });
+       *
+       * @name doBulkSearch
+       * @function
+       *
+       * @param {String} country
+       * @param {String} engineOptions
+       * @param {String} engineType
+       * @param {String} layout
+       * @param {String} addressQuery
+       * @param {Boolean} formattedAddressInPicklist
+       * @param {callback} callback
+       *
+       * @returns {XMLHttpRequest}
+       */
       doBulkSearch(args) {
         args['onPremise'] = true;
+        args['engineType'] = 'Verification';
         return proWebOnPremiseHelper.doBulkSearch(args);
       }
 
@@ -1674,7 +1768,7 @@
 
       /**
        * Obtains a list of available data mappings
-       * 
+       *
        * @example @executable
        * EDQ.address.proWeb.doGetData({
        *  callback: function(data, error) {
