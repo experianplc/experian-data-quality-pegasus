@@ -1520,7 +1520,7 @@
      *
      * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
      *
-     * @module  proWebOnPremise
+     * @module proWeb
      * @borrows module:proWeb~doSearch as doSearch
      * @borrows module:proWeb~doRefine as doRefine
      * @borrows module:proWeb~doGetSystemInfo as doGetSystemInfo
@@ -1533,7 +1533,7 @@
      * @borrows module:proWeb~doGetAddress as doGetAddress
      * @borrows module:proWeb~doCanSearch as doCanSearch
      */
-    proWebOnPremise: {
+    proWeb: {
 
       doSearch(args) {
         args['onPremise'] = true;
@@ -1700,9 +1700,9 @@
      *
      * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
      *
-     * @module proWeb
+     * @module proWebOnDemand
      */
-    proWeb: {
+    proWebOnDemand: {
 
       /**
        * Checks that the combination of data mapping, engine and layout are valid for searching.
