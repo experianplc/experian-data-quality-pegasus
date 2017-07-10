@@ -16,12 +16,12 @@ var addressCallback = function(data) {
   this.done();
 };
 
-QUnit.module('Address.ProWeb tests');
+QUnit.module('Address.ProWebOnDemand tests');
 
 QUnit.test('DoCanSearch functions as intended', function(assert) {
   let proWebSuccess = assert.async(2)
 
-  EDQ.address.proWeb.doCanSearch({
+  EDQ.address.proWebOnDemand.doCanSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -29,7 +29,7 @@ QUnit.test('DoCanSearch functions as intended', function(assert) {
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWeb.doCanSearch({
+  EDQ.address.proWebOnDemand.doCanSearch({
     country: '',
     engineOptions: {},
     engineType: 'Verification',
@@ -40,12 +40,12 @@ QUnit.test('DoCanSearch functions as intended', function(assert) {
 });
 
 QUnit.test('DoGetAddress functions as intended', function(assert) {
-  assert.equal(Boolean(EDQ.address.proWeb.doGetAddress), true, "The request can be made");
+  assert.equal(Boolean(EDQ.address.proWebOnDemand.doGetAddress), true, "The request can be made");
 
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWeb.doSearch({
+  EDQ.address.proWebOnDemand.doSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -54,7 +54,7 @@ QUnit.test('DoGetAddress functions as intended', function(assert) {
     formattedAddressInPicklist: false,
 
     callback: function(data) {
-      EDQ.address.proWeb.doGetAddress({
+      EDQ.address.proWebOnDemand.doGetAddress({
         moniker: data.Envelope.Body.QASearchResult.QAPicklist.FullPicklistMoniker,
         layout: 'EDQDemoLayout',
         callback: addressCallback.bind({assert: assert, done: proWebSuccess})
@@ -62,7 +62,7 @@ QUnit.test('DoGetAddress functions as intended', function(assert) {
     }
   });
 
-  EDQ.address.proWeb.doGetAddress({
+  EDQ.address.proWebOnDemand.doGetAddress({
     moniker: 'dUSA|5133da03-d155-42b1-aa14-8f7237ae901c|7.610FOUSADwHhBwAAAAABAwEAAAADmDtekgAhEAIYACAAAAAAAAAAAP..AAAAAAD.....AAAAAAAAAAAAAAAAAAAARXhwZXJpYW4A',
     layout: 'EDQDemoLayout',
     callback: addressFailCallback.bind({assert: assert, done: proWebFail})
@@ -73,32 +73,32 @@ QUnit.test('DoGetAddress functions as intended', function(assert) {
 QUnit.test('DoGetData functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWeb.doGetData({
+  EDQ.address.proWebOnDemand.doGetData({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWeb.doGetData({
+  EDQ.address.proWebOnDemand.doGetData({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 });
 
 QUnit.test('DoGetDataMapDetail functions as intended', function(assert) {
-  assert.equal(Boolean(EDQ.address.proWeb.doGetDataMapDetail), true, "The request can be made");
+  assert.equal(Boolean(EDQ.address.proWebOnDemand.doGetDataMapDetail), true, "The request can be made");
 });
 
 QUnit.test('DoGetExampleAddresses functions as intended', function(assert) {
-  assert.equal(Boolean(EDQ.address.proWeb.doGetExampleAddresses), true, "The request can be made");
+  assert.equal(Boolean(EDQ.address.proWebOnDemand.doGetExampleAddresses), true, "The request can be made");
 
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWeb.doGetExampleAddresses({
+  EDQ.address.proWebOnDemand.doGetExampleAddresses({
     country: 'USA',
     layout: 'AllElements',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWeb.doGetExampleAddresses({
+  EDQ.address.proWebOnDemand.doGetExampleAddresses({
     country: 'USA',
     layout: 'AllElementsp',
     callback: addressFailCallback.bind({assert: assert, done: proWebFail})
@@ -109,12 +109,12 @@ QUnit.test('DoGetLayouts functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWeb.doGetLayouts({
+  EDQ.address.proWebOnDemand.doGetLayouts({
     country: 'USA',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWeb.doGetLayouts({
+  EDQ.address.proWebOnDemand.doGetLayouts({
     country: 'USAp',
     callback: addressFailCallback.bind({assert: assert, done: proWebFail})
   });
@@ -122,23 +122,23 @@ QUnit.test('DoGetLayouts functions as intended', function(assert) {
 
 QUnit.test('DoGetLicenseInfo functions as intended', function(assert) {
   try {
-    EDQ.address.proWeb.doGetLicenseInfo({
+    EDQ.address.proWebOnDemand.doGetLicenseInfo({
       callback: function(d, e) {
       }
     });
   } catch(e) {
     assert.equal(Boolean(e), true, 'DoGetLicenseInfo fails as expected');
   }
-  assert.equal(Boolean(EDQ.address.proWeb.doRefine), true, "The request can be made");
+  assert.equal(Boolean(EDQ.address.proWebOnDemand.doRefine), true, "The request can be made");
 });
 
 QUnit.test('DoPromptSet functions as intended', function(assert) {
-  assert.equal(Boolean(EDQ.address.proWeb.doRefine), true, "The request can be made");
+  assert.equal(Boolean(EDQ.address.proWebOnDemand.doRefine), true, "The request can be made");
 
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWeb.doGetPromptSet({
+  EDQ.address.proWebOnDemand.doGetPromptSet({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -146,7 +146,7 @@ QUnit.test('DoPromptSet functions as intended', function(assert) {
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWeb.doGetPromptSet({
+  EDQ.address.proWebOnDemand.doGetPromptSet({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -159,11 +159,11 @@ QUnit.test('DoPromptSet functions as intended', function(assert) {
 QUnit.test('DoGetSystemInfo functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWeb.doGetSystemInfo({
+  EDQ.address.proWebOnDemand.doGetSystemInfo({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWeb.doGetSystemInfo({
+  EDQ.address.proWebOnDemand.doGetSystemInfo({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
@@ -173,7 +173,7 @@ QUnit.test('DoRefine functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWeb.doSearch({
+  EDQ.address.proWebOnDemand.doSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -181,7 +181,7 @@ QUnit.test('DoRefine functions as intended', function(assert) {
     addressQuery: '02110',
     formattedAddressInPicklist: false,
     callback: function(data) {
-      EDQ.address.proWeb.doRefine({
+      EDQ.address.proWebOnDemand.doRefine({
         country: 'USA',
         refineOptions: {},
         layout: 'EDQDemoLayout',
@@ -193,7 +193,7 @@ QUnit.test('DoRefine functions as intended', function(assert) {
     }
  });
 
-  EDQ.address.proWeb.doRefine({
+  EDQ.address.proWebOnDemand.doRefine({
     country: 'USA',
     refineOptions: {},
     layout: 'EDQDemoLayoutd',
@@ -209,7 +209,7 @@ QUnit.test('DoSearch functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWeb.doSearch({
+  EDQ.address.proWebOnDemand.doSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -219,7 +219,7 @@ QUnit.test('DoSearch functions as intended', function(assert) {
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWeb.doSearch({
+  EDQ.address.proWebOnDemand.doSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -274,7 +274,7 @@ QUnit.test('Format address by URL functions as intended', function(assert) {
   });
 });
 
-QUnit.module('Address.ProWebOnPremise tests');
+QUnit.module('Address.ProWeb tests');
 
 var goodLayout = '( QAS Standard Layout )';
 var badLayout = 'blah';
@@ -292,7 +292,7 @@ QUnit.test('DoSearch functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail = assert.async();
 
-  EDQ.address.proWebOnPremise.doSearch({
+  EDQ.address.proWeb.doSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -302,7 +302,7 @@ QUnit.test('DoSearch functions as intended', function(assert) {
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doSearch({
+  EDQ.address.proWeb.doSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -318,7 +318,7 @@ QUnit.test('DoRefine functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWebOnPremise.doSearch({
+  EDQ.address.proWeb.doSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -326,7 +326,7 @@ QUnit.test('DoRefine functions as intended', function(assert) {
     addressQuery: '125 Summer Street, Boston MA 02110',
     formattedAddressInPicklist: false,
     callback: function(data) {
-      EDQ.address.proWebOnPremise.doRefine({
+      EDQ.address.proWeb.doRefine({
         onPremise: true,
         country: 'USA',
         refineOptions: {},
@@ -339,7 +339,7 @@ QUnit.test('DoRefine functions as intended', function(assert) {
     }
  });
 
-  EDQ.address.proWebOnPremise.doRefine({
+  EDQ.address.proWeb.doRefine({
     country: 'USA',
     refineOptions: {},
     layout: goodLayout,
@@ -353,11 +353,11 @@ QUnit.test('DoRefine functions as intended', function(assert) {
 QUnit.test('DoGetSystemInfo functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWebOnPremise.doGetSystemInfo({
+  EDQ.address.proWeb.doGetSystemInfo({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doGetSystemInfo({
+  EDQ.address.proWeb.doGetSystemInfo({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
@@ -367,7 +367,7 @@ QUnit.test('DoPromptSet functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWebOnPremise.doGetPromptSet({
+  EDQ.address.proWeb.doGetPromptSet({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -375,7 +375,7 @@ QUnit.test('DoPromptSet functions as intended', function(assert) {
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doGetPromptSet({
+  EDQ.address.proWeb.doGetPromptSet({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -389,12 +389,12 @@ QUnit.test('DoGetLayouts functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWebOnPremise.doGetLayouts({
+  EDQ.address.proWeb.doGetLayouts({
     country: 'USA',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doGetLayouts({
+  EDQ.address.proWeb.doGetLayouts({
     country: 'USAp',
     callback: addressFailCallback.bind({assert: assert, done: proWebFail})
   });
@@ -403,7 +403,7 @@ QUnit.test('DoGetLayouts functions as intended', function(assert) {
 QUnit.test('DoGetLicenseInfo functions as intended', function(assert) {
   var proWebSuccess = assert.async();
 
-  EDQ.address.proWebOnPremise.doGetLicenseInfo({
+  EDQ.address.proWeb.doGetLicenseInfo({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
@@ -413,13 +413,13 @@ QUnit.test('DoGetExampleAddresses functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWebOnPremise.doGetExampleAddresses({
+  EDQ.address.proWeb.doGetExampleAddresses({
     country: 'USA',
     layout: goodLayout,
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doGetExampleAddresses({
+  EDQ.address.proWeb.doGetExampleAddresses({
     country: 'USA',
     layout: badLayout,
     callback: addressFailCallback.bind({assert: assert, done: proWebFail})
@@ -430,7 +430,7 @@ QUnit.test('DoGetAddress functions as intended', function(assert) {
   var proWebSuccess = assert.async();
   var proWebFail    = assert.async();
 
-  EDQ.address.proWebOnPremise.doSearch({
+  EDQ.address.proWeb.doSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -439,7 +439,7 @@ QUnit.test('DoGetAddress functions as intended', function(assert) {
     formattedAddressInPicklist: false,
 
     callback: function(data) {
-      EDQ.address.proWebOnPremise.doGetAddress({
+      EDQ.address.proWeb.doGetAddress({
         moniker: data.Envelope.Body.QASearchResult.QAPicklist.FullPicklistMoniker,
         layout: goodLayout,
         callback: addressCallback.bind({assert: assert, done: proWebSuccess})
@@ -447,7 +447,7 @@ QUnit.test('DoGetAddress functions as intended', function(assert) {
     }
   });
 
-  EDQ.address.proWebOnPremise.doGetAddress({
+  EDQ.address.proWeb.doGetAddress({
     moniker: 'dUSA|5133da03-d155-42b1-aa14-8f7237ae901c|7.610FOUSADwHhBwAAAAABAwEAAAADmDtekgAhEAIYACAAAAAAAAAAAP..AAAAAAD.....AAAAAAAAAAAAAAAAAAAARXhwZXJpYW4A',
     layout: 'EDQDemoLayout',
     callback: addressFailCallback.bind({assert: assert, done: proWebFail})
@@ -458,7 +458,7 @@ QUnit.test('DoGetAddress functions as intended', function(assert) {
 QUnit.test('DoCanSearch functions as intended', function(assert) {
   let proWebSuccess = assert.async(2)
 
-  EDQ.address.proWebOnPremise.doCanSearch({
+  EDQ.address.proWeb.doCanSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -466,7 +466,7 @@ QUnit.test('DoCanSearch functions as intended', function(assert) {
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doCanSearch({
+  EDQ.address.proWeb.doCanSearch({
     country: '',
     engineOptions: {},
     engineType: 'Verification',
@@ -479,11 +479,11 @@ QUnit.test('DoCanSearch functions as intended', function(assert) {
 QUnit.test('DoGetData functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWebOnPremise.doGetData({
+  EDQ.address.proWeb.doGetData({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doGetData({
+  EDQ.address.proWeb.doGetData({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 });
@@ -492,12 +492,12 @@ QUnit.test('DoGetData functions as intended', function(assert) {
 QUnit.test('DoGetDataMapDetail functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWebOnPremise.doGetDataMapDetail({
+  EDQ.address.proWeb.doGetDataMapDetail({
     dataMap: 'USA',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doGetDataMapDetail({
+  EDQ.address.proWeb.doGetDataMapDetail({
     dataMap: '',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
@@ -507,11 +507,11 @@ QUnit.test('DoGetDataMapDetail functions as intended', function(assert) {
 QUnit.test('DoGetDataHashCode functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWebOnPremise.doGetDataHashCode({
+  EDQ.address.proWeb.doGetDataHashCode({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doGetDataHashCode({
+  EDQ.address.proWeb.doGetDataHashCode({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
@@ -520,12 +520,12 @@ QUnit.test('DoGetDataHashCode functions as intended', function(assert) {
 QUnit.test('DoUnlockDPV functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWebOnPremise.doUnlockDPV({
+  EDQ.address.proWeb.doUnlockDPV({
     unlockCode: '',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doUnlockDPV({
+  EDQ.address.proWeb.doUnlockDPV({
     unlockCode: 'asdf',
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
@@ -535,11 +535,11 @@ QUnit.test('DoUnlockDPV functions as intended', function(assert) {
 QUnit.test('DoGetDPVStatus functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWebOnPremise.doGetDPVStatus({
+  EDQ.address.proWeb.doGetDPVStatus({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doGetDPVStatus({
+  EDQ.address.proWeb.doGetDPVStatus({
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 });
@@ -547,7 +547,7 @@ QUnit.test('DoGetDPVStatus functions as intended', function(assert) {
 QUnit.test('DoBulkSearch functions as intended', function(assert) {
   var proWebSuccess = assert.async(2);
 
-  EDQ.address.proWebOnPremise.doBulkSearch({
+  EDQ.address.proWeb.doBulkSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
@@ -557,7 +557,7 @@ QUnit.test('DoBulkSearch functions as intended', function(assert) {
     callback: addressCallback.bind({assert: assert, done: proWebSuccess})
   });
 
-  EDQ.address.proWebOnPremise.doBulkSearch({
+  EDQ.address.proWeb.doBulkSearch({
     country: 'USA',
     engineOptions: {},
     engineType: 'Verification',
