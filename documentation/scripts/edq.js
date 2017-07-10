@@ -34,9 +34,14 @@
     var previousEdq = root.EDQ;
     var EDQ = {};
     root.EDQ = EDQ;
-    function _proWebHelpers() {
+    function _proWebHelpers(serviceUrl, soapActionUrlPrefix) {
         var _this = this;
+        if (serviceUrl === void 0) { serviceUrl = 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx'; }
+        if (soapActionUrlPrefix === void 0) { soapActionUrlPrefix = 'http://www.qas.com/OnDemand-2011-03'; }
+        this.serviceUrl = serviceUrl;
+        this.soapActionUrlPrefix = soapActionUrlPrefix;
         /*
+         * @param {Boolean} onPremise
          * @param {String} country
          * @param {Object} engineOptions
          * @param {String} engineType
@@ -46,9 +51,9 @@
          * @returns {XMLHttpRequest}
          */
         this.doCanSearch = function (_a) {
-            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoCanSearch';
-            var xmlRequest = this.buildDoCanSearch({ country: country, engineOptions: engineOptions, engineType: engineType, layout: layout, callback: callback });
+            var onPremise = _a.onPremise, country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, callback = _a.callback;
+            var soapActionUrl = soapActionUrlPrefix + "/DoCanSearch";
+            var xmlRequest = this.buildDoCanSearch({ country: country, engineOptions: engineOptions, engineType: engineType, layout: layout, onPremise: onPremise });
             return this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
@@ -59,9 +64,9 @@
          * @returns {XMLHttpRequest}
          */
         this.doGetAddress = function (_a) {
-            var layout = _a.layout, moniker = _a.moniker, callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetAddress';
-            var xmlRequest = this.buildDoGetAddressMessage({ layout: layout, moniker: moniker, callback: callback });
+            var layout = _a.layout, moniker = _a.moniker, callback = _a.callback, onPremise = _a.onPremise;
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetAddress";
+            var xmlRequest = this.buildDoGetAddressMessage({ layout: layout, moniker: moniker, onPremise: onPremise });
             return this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
@@ -71,7 +76,7 @@
          */
         this.doGetData = function (_a) {
             var callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetData';
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetData";
             var xmlRequest = this.buildDoGetDataMessage();
             return this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
@@ -82,15 +87,63 @@
          * @returns {XMLHttpRequest}
          */
         this.doGetDataMapDetail = function (_a) {
-            var dataMap = _a.dataMap, callback = _a.callback;
-            if (PRO_WEB_SERVICE_URL === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
+            var dataMap = _a.dataMap, callback = _a.callback, onPremise = _a.onPremise;
+            if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
                 throw "This SOAP method is not supported in this version of QAS Pro On Demand";
             }
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetDataMapDetail';
-            var xmlRequest = this.buildDoGetDataMapDetail({ dataMap: dataMap, callback: callback });
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetDataMapDetail";
+            var xmlRequest = this.buildDoGetDataMapDetail({ dataMap: dataMap, onPremise: onPremise });
             return this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
+         * @param {Boolean} onPremise
+         * @param {String} dataMap
+         * @param {Function} callback
+         *
+         * @returns {XMLHttpRequest}
+         */
+        this.doGetDataHashCode = function (_a) {
+            var onPremise = _a.onPremise, callback = _a.callback;
+            if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
+                throw "This SOAP method is not supported in this version of QAS Pro On Demand";
+            }
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetDataHashCode";
+            var xmlRequest = this.buildDoGetDataHashCode(onPremise);
+            return this.makeRequest(xmlRequest, soapActionUrl, callback);
+        };
+        /*
+         * @param {Boolean} onPremise
+         * @param {String} unlockCode
+         * @param {Function} callback
+         *
+         * @returns {XMLHttpRequest}
+         */
+        this.doUnlockDPV = function (_a) {
+            var onPremise = _a.onPremise, unlockCode = _a.unlockCode, callback = _a.callback;
+            if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
+                throw "This SOAP method is not supported in this version of QAS Pro On Demand";
+            }
+            var soapActionUrl = soapActionUrlPrefix + "/DoUnlockDPV";
+            var xmlRequest = this.buildDoUnlockDPV({ unlockCode: unlockCode, onPremise: onPremise });
+            return this.makeRequest(xmlRequest, soapActionUrl, callback);
+        };
+        /*
+         * @param {Boolean} onPremise
+         * @param {Function} callback
+         *
+         * @returns {XMLHttpRequest}
+         */
+        this.doGetDPVStatus = function (_a) {
+            var onPremise = _a.onPremise, callback = _a.callback;
+            if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
+                throw "This SOAP method is not supported in this version of QAS Pro On Demand";
+            }
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetDPVStatus";
+            var xmlRequest = this.buildDoGetDPVStatus({ onPremise: onPremise });
+            return this.makeRequest(xmlRequest, soapActionUrl, callback);
+        };
+        /*
+         * @param {Boolean} onPremise
          * @param {String} country
          * @param {String} layout
          * @param {Function} callback
@@ -98,38 +151,79 @@
          * @returns {XMLHttpRequest}
          */
         this.doGetExampleAddresses = function (_a) {
-            var country = _a.country, layout = _a.layout, callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetExampleAddresses';
-            var xmlRequest = this.buildDoGetExampleAddressesMessage({ country: country, layout: layout, callback: callback });
+            var onPremise = _a.onPremise, country = _a.country, layout = _a.layout, callback = _a.callback;
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetExampleAddresses";
+            var xmlRequest = this.buildDoGetExampleAddressesMessage({ country: country, layout: layout, onPremise: onPremise });
             return this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
+         * @param {Boolean} onPremise
+         * @param {Array<String>} searches
+         * @param {Function} callback
+         *
+         * @returns {XMLHttpRequest}
+         */
+        this.doBulkSearch = function (_a) {
+            var onPremise = _a.onPremise, country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, searches = _a.searches, formattedAddressInPicklist = _a.formattedAddressInPicklist, callback = _a.callback;
+            var soapActionUrl = soapActionUrlPrefix + "/DoBulkSearch";
+            var xmlRequest = this.buildDoBulkSearch({
+                searches: searches,
+                onPremise: onPremise,
+                country: country,
+                engineOptions: engineOptions,
+                engineType: engineType,
+                layout: layout,
+                formattedAddressInPicklist: formattedAddressInPicklist
+            });
+            return this.makeRequest(xmlRequest, soapActionUrl, callback);
+        };
+        this.buildDoBulkSearch = function (_a) {
+            var _this = this;
+            var searches = _a.searches, country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
+                '<soapenv:Body>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QABulkSearch " + (onPremise ? 'Language' : 'Localisation') + "=\"\">") +
+                this._buildSoapCountryString(country, onPremise) +
+                this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType, onPremise: onPremise }) +
+                this._buildSoapLayoutString(layout, onPremise) +
+                ("<" + (onPremise ? 'web' : 'ond') + ":BulkSearchTerm Count=\"\">") +
+                searches.map(function (search) { return _this._buildSoapSearchString(search, onPremise); }).join('') +
+                ("</" + (onPremise ? 'web' : 'ond') + ":BulkSearchTerm>") +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QABulkSearch>") +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
+            return xmlString;
+        };
+        /*
          * @param {String} country
+         * @param {Boolean} onPremise
          * @param {Function} callback
          *
          * @returns {XMLHttpRequest}
          */
         this.doGetLayouts = function (_a) {
-            var country = _a.country, callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetLayouts';
-            var xmlRequest = this.buildDoGetLayoutsMessage({ country: country, callback: callback });
+            var country = _a.country, onPremise = _a.onPremise, callback = _a.callback;
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetLayouts";
+            var xmlRequest = this.buildDoGetLayoutsMessage({ country: country, onPremise: onPremise });
             return this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
+         * @param {Boolean} onPremise
          * @param {Function} callback
          *
          * @returns {XMLHttpRequest}
          */
         this.doGetLicenseInfo = function (_a) {
-            var callback = _a.callback;
-            if (PRO_WEB_SERVICE_URL === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
+            var callback = _a.callback, onPremise = _a.onPremise;
+            if (serviceUrl === 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx') {
                 throw "This SOAP method is not supported in this version of QAS Pro On Demand";
             }
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetLicenseInfo';
-            var xmlRequest = this.buildDoGetLicenseInfoMessage({ callback: callback });
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetLicenseInfo";
+            var xmlRequest = this.buildDoGetLicenseInfoMessage({ onPremise: onPremise });
             return this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
+         * @param {Boolean} onPremise
          * @param {String} country
          * @param {Object} engineOptions
          * @param {String} engineType
@@ -139,20 +233,21 @@
          * @returns {XMLHttpRequest}
          */
         this.doGetPromptSet = function (_a) {
-            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, promptSet = _a.promptSet, callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetPromptSet';
-            var xmlRequest = this.buildDoGetPromptSetMessage({ country: country, engineOptions: engineOptions, engineType: engineType, promptSet: promptSet, callback: callback });
+            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, promptSet = _a.promptSet, callback = _a.callback, onPremise = _a.onPremise;
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetPromptSet";
+            var xmlRequest = this.buildDoGetPromptSetMessage({ country: country, engineOptions: engineOptions, engineType: engineType, promptSet: promptSet, onPremise: onPremise });
             return this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
+         * @param {Boolean} onPremise
          * @param {Function} callback
          *
          * @returns {XMLHttpRequest}
          */
         this.doGetSystemInfo = function (_a) {
-            var callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoGetSystemInfo';
-            var xmlRequest = this.buildDoGetSystemInfoMessage();
+            var callback = _a.callback, onPremise = _a.onPremise;
+            var soapActionUrl = soapActionUrlPrefix + "/DoGetSystemInfo";
+            var xmlRequest = this.buildDoGetSystemInfoMessage(onPremise);
             this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
@@ -166,9 +261,10 @@
          * @returns {XMLHttpRequest}
          */
         this.doRefine = function (_a) {
-            var refineOptions = _a.refineOptions, moniker = _a.moniker, refinement = _a.refinement, layout = _a.layout, formattedAddressInPicklist = _a.formattedAddressInPicklist, callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoRefine';
+            var onPremise = _a.onPremise, refineOptions = _a.refineOptions, moniker = _a.moniker, refinement = _a.refinement, layout = _a.layout, formattedAddressInPicklist = _a.formattedAddressInPicklist, callback = _a.callback;
+            var soapActionUrl = soapActionUrlPrefix + "/DoRefine";
             var xmlRequest = this.buildDoRefineMessage({
+                onPremise: onPremise,
                 refineOptions: refineOptions,
                 moniker: moniker,
                 refinement: refinement,
@@ -179,6 +275,7 @@
             this.makeRequest(xmlRequest, soapActionUrl, callback);
         };
         /*
+     * @param {Boolean} onPremise
      * @param {String} country
          * @param {String} engineOptions
          * @param {String} engineType
@@ -190,9 +287,10 @@
      * @returns {XMLHttpRequest}
          */
         this.doSearch = function (_a) {
-            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, addressQuery = _a.addressQuery, formattedAddressInPicklist = _a.formattedAddressInPicklist, callback = _a.callback;
-            var soapActionUrl = 'http://www.qas.com/OnDemand-2011-03/DoSearch';
+            var onPremise = _a.onPremise, country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, addressQuery = _a.addressQuery, formattedAddressInPicklist = _a.formattedAddressInPicklist, callback = _a.callback;
+            var soapActionUrl = this.soapActionUrlPrefix + "/DoSearch";
             var xmlRequest = this.buildDoSearchMessage({
+                onPremise: onPremise,
                 country: country,
                 engineOptions: engineOptions,
                 engineType: engineType,
@@ -208,114 +306,170 @@
          * @param {String} engineOptions
          * @param {String} engineType
          * @param {String} layout
+         * @param {String} doSearch
+         * @param {Boolean} onPremise
          *
          * @returns {String}
          */
         this.buildDoCanSearch = function (_a) {
-            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout;
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QASearch Localisation="" RequestTag="">' +
-                this._buildSoapCountryString(country) +
-                this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType }) +
-                this._buildSoapLayoutString(layout) +
-                '</ond:QASearch>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QACanSearch " + (onPremise ? 'Language' : 'Localisation') + "=\"\" RequestTag=\"\">") +
+                this._buildSoapCountryString(country, onPremise) +
+                this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType, onPremise: onPremise }) +
+                this._buildSoapLayoutString(layout, onPremise) +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QACanSearch>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
         };
         /*
      * @param {String} layout
+     * @param {String} onPremise
          * @param {String} moniker
          *
          * @returns {String}
          */
         this.buildDoGetAddressMessage = function (_a) {
-            var layout = _a.layout, moniker = _a.moniker;
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+            var layout = _a.layout, moniker = _a.moniker, onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QAGetAddress Localisation="" RequestTag="">' +
-                this._buildSoapLayoutString(layout) +
-                '<ond:Moniker>' + moniker + '</ond:Moniker>' +
-                '</ond:QAGetAddress>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetAddress " + (onPremise ? 'Language' : 'Localisation') + "=\"\" RequestTag=\"\">") +
+                this._buildSoapLayoutString(layout, onPremise) +
+                this._buildSoapMonikerString(moniker, onPremise) +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QAGetAddress>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
         };
         /*
+         * @param {Boolean} onPremise
+         * @param {String} unlockCode
+         *
+         * @returns {String}
+         */
+        this.buildDoUnlockDPV = function (_a) {
+            var onPremise = _a.onPremise, unlockCode = _a.unlockCode;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
+                '<soapenv:Body>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAUnlockDPV>") +
+                ("<" + (onPremise ? 'web' : 'ond') + ":UnlockCode>" + unlockCode + "</" + (onPremise ? 'web' : 'ond') + ":UnlockCode>") +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QAUnlockDPV>") +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
+            return xmlString;
+        };
+        /*
+         * @param {Boolean} onPremise
+         *
+         * @returns {String}
+         */
+        this.buildDoGetDPVStatus = function (_a) {
+            var onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
+                '<soapenv:Body>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetDPVStatus/>") +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
+            return xmlString;
+        };
+        /*
+     * @param {Boolean} onPremise
      * @param {String} country
          * @param {String} layout
          *
          * @returns {String}
          */
         this.buildDoGetExampleAddressesMessage = function (_a) {
-            var country = _a.country, layout = _a.layout;
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+            var country = _a.country, layout = _a.layout, onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QAGetExampleAddresses Localisation="" RequestTag="">' +
-                this._buildSoapCountryString(country) +
-                this._buildSoapLayoutString(layout) +
-                '</ond:QAGetExampleAddresses>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetExampleAddresses " + (onPremise ? 'Language' : 'Localisation') + "=\"\" RequestTag=\"\">") +
+                this._buildSoapCountryString(country, onPremise) +
+                this._buildSoapLayoutString(layout, onPremise) +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QAGetExampleAddresses>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
         };
         /*
+     * @param {Boolean} onPremise
+     *
          * @returns {String}
          */
-        this.buildDoGetDataMessage = function () {
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        this.buildDoGetDataMessage = function (onPremise) {
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QAGetData Localisation="" >' +
-                '</ond:QAGetData>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetData " + (onPremise ? 'Language' : 'Localisation') + "=\"\" >") +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QAGetData>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
         };
         /*
-         * @param {String} dataMap
+         * @param {Boolean} onPremise
+         *
+         * @returns {String}
+         */
+        this.buildDoGetDataHashCode = function (onPremise) {
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
+                '<soapenv:Body>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetDataHashCode " + (onPremise ? 'Language' : 'Localisation') + "=\"\">") +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QAGetDataHashCode>") +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
+            return xmlString;
+        };
+        /*
+         * @param {Boolean} onPremise
+         * @param {String} dataMap - can be a country, e.g. USA
          *
          * @returns {String}
          */
         this.buildDoGetDataMapDetail = function (_a) {
-            var dataMap = _a.dataMap;
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+            var dataMap = _a.dataMap, onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QAGetDataMapDetail Localisation="">' +
-                this._buildSoapDataMapString(dataMap) +
-                '</ond:QAGetDataMapDetail>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetDataMapDetail " + (onPremise ? 'Language' : 'Localisation') + "=\"\">") +
+                this._buildSoapDataMapString(dataMap, onPremise) +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QAGetDataMapDetail>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
         };
         /*
+         * @param {Boolean} onPremise
          * @returns {String}
          */
-        this.buildDoGetLicenseInfoMessage = function () {
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        this.buildDoGetLicenseInfoMessage = function (_a) {
+            var onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QAGetLicenseInfo Localisation=""/>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetLicenseInfo " + (onPremise ? 'Language' : 'Localisation') + "=\"\"/>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
         },
             /*
+             * @param {Boolean} onPremise
              * @param {String} country
              *
              * @returns {String}
              */
             this.buildDoGetLayoutsMessage = function (_a) {
-                var country = _a.country;
-                var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+                var country = _a.country, onPremise = _a.onPremise;
+                var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                     '<soapenv:Body>' +
-                    '<ond:QAGetLayouts Localisation="">' +
-                    this._buildSoapCountryString(country) +
-                    '</ond:QAGetLayouts>' +
+                    ("<" + (onPremise ? 'web' : 'ond') + ":QAGetLayouts " + (onPremise ? 'Language' : 'Localisation') + "=\"\">") +
+                    this._buildSoapCountryString(country, onPremise) +
+                    ("</" + (onPremise ? 'web' : 'ond') + ":QAGetLayouts>") +
                     '</soapenv:Body>' +
                     '</soapenv:Envelope>';
                 return xmlString;
             };
         /*
+         * @param {Boolean} onPremise
          * @param {String} country
          * @param {Object} engineOptions
          * @param {String} engineType
@@ -324,25 +478,26 @@
          * @returns {String}
          */
         this.buildDoGetPromptSetMessage = function (_a) {
-            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, promptSet = _a.promptSet;
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, promptSet = _a.promptSet, onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QAGetPromptSet Localisation="">' +
-                this._buildSoapCountryString(country) +
-                this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType }) +
-                this._buildSoapPromptSetString(promptSet) +
-                '</ond:QAGetPromptSet>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetPromptSet " + (onPremise ? 'Language' : 'Localisation') + "=\"\">") +
+                this._buildSoapCountryString(country, onPremise) +
+                this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType, onPremise: onPremise }) +
+                this._buildSoapPromptSetString(promptSet, onPremise) +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QAGetPromptSet>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
         };
         /*
+         * @param {Boolean} onPremise
          * @returns {String}
          */
-        this.buildDoGetSystemInfoMessage = function () {
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+        this.buildDoGetSystemInfoMessage = function (onPremise) {
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QAGetSystemInfo Localisation=""/>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QAGetSystemInfo " + (onPremise ? 'Language' : 'Localisation') + "=\"\"/>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
@@ -357,21 +512,17 @@
              * @returns {String}
              */
         this.buildDoRefineMessage = function (_a) {
-            var refineOptions = _a.refineOptions, moniker = _a.moniker, refinement = _a.refinement, layout = _a.layout, formattedAddressInPicklist = _a.formattedAddressInPicklist;
+            var refineOptions = _a.refineOptions, moniker = _a.moniker, refinement = _a.refinement, layout = _a.layout, formattedAddressInPicklist = _a.formattedAddressInPicklist, onPremise = _a.onPremise;
             var threshold = this._cleanThreshold(refineOptions.threshold);
             var timeout = this._cleanTimeout(refineOptions.timeout);
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QARefine Threshold=' + '\"' + threshold + '\"' + ' ' +
-                'Timeout=' + '\"' + timeout + '\"' + ' ' +
-                'Localisation=""' + ' ' +
-                'RequestTag=""' +
-                '>' +
-                this._buildSoapMonikerString(moniker) +
-                this._buildSoapRefinementString(refinement) +
-                this._buildSoapLayoutString(layout) +
-                this._buildSoapFormatString(formattedAddressInPicklist) +
-                '</ond:QARefine>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QARefine Threshold=\"" + threshold + "\" " + (onPremise ? 'Language' : 'Localisation') + "=\"\" RequestTag=\"\">") +
+                this._buildSoapMonikerString(moniker, onPremise) +
+                this._buildSoapRefinementString(refinement, onPremise) +
+                this._buildSoapLayoutString(layout, onPremise) +
+                this._buildSoapFormatString(formattedAddressInPicklist, onPremise) +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QARefine>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
@@ -383,20 +534,21 @@
          * @param {String} layout
          * @param {String} addressQuery
          * @param {Boolean} formattedAddressInPicklist
+     * @param {Boolean} onPremise
          *
          * @returns {String}
          */
         this.buildDoSearchMessage = function (_a) {
-            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, addressQuery = _a.addressQuery, formattedAddressInPicklist = _a.formattedAddressInPicklist;
-            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString() + '>' +
+            var country = _a.country, engineOptions = _a.engineOptions, engineType = _a.engineType, layout = _a.layout, addressQuery = _a.addressQuery, formattedAddressInPicklist = _a.formattedAddressInPicklist, onPremise = _a.onPremise;
+            var xmlString = '<soapenv:Envelope ' + this._buildSoapNamespaceSubString(onPremise) + '>' +
                 '<soapenv:Body>' +
-                '<ond:QASearch Localisation="" RequestTag="">' +
-                this._buildSoapCountryString(country) +
-                this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType }) +
-                this._buildSoapLayoutString(layout) +
-                this._buildSoapSearchString(addressQuery) +
-                this._buildSoapFormatString(formattedAddressInPicklist) +
-                '</ond:QASearch>' +
+                ("<" + (onPremise ? 'web' : 'ond') + ":QASearch " + (onPremise ? 'Language' : 'Localisation') + "=\"\" RequestTag=\"\">") +
+                this._buildSoapCountryString(country, onPremise) +
+                this._buildSoapEngineString({ engineOptions: engineOptions, engineType: engineType, onPremise: onPremise }) +
+                this._buildSoapLayoutString(layout, onPremise) +
+                this._buildSoapSearchString(addressQuery, onPremise) +
+                this._buildSoapFormatString(formattedAddressInPicklist, onPremise) +
+                ("</" + (onPremise ? 'web' : 'ond') + ":QASearch>") +
                 '</soapenv:Body>' +
                 '</soapenv:Envelope>';
             return xmlString;
@@ -409,7 +561,7 @@
          * @returns {undefined}
          */
         this.makeRequest = (function (requestData, soapActionUrl, callback) {
-            if (!PRO_WEB_SERVICE_URL) {
+            if (!serviceUrl) {
                 throw 'Missing PRO_WEB_SERVICE_URL.';
             }
             else if (!PRO_WEB_AUTH_TOKEN) {
@@ -434,7 +586,7 @@
                     }
                 }
             };
-            xhr.open('POST', PRO_WEB_SERVICE_URL);
+            xhr.open('POST', serviceUrl);
             xhr.setRequestHeader('Auth-Token', PRO_WEB_AUTH_TOKEN);
             xhr.setRequestHeader('SOAPAction', soapActionUrl);
             xhr.setRequestHeader('Content-Type', 'text/xml');
@@ -468,7 +620,7 @@
          * @returns {Number}
          */
         this._cleanThreshold = function (threshold) {
-            return threshold || 10000;
+            return threshold || 300;
         };
         /*
      * @param {Number} timeout
@@ -476,100 +628,118 @@
          * @returns {Number}
          */
         this._cleanTimeout = function (timeout) {
-            return timeout || 10000;
+            return timeout || 300;
         };
         /*
      * @param {String} formatAddress
+     * @param {Boolean} onPremise
      *
          * @returns {String}
          */
-        this._buildSoapFormatString = function (formatAddress) {
-            return '<ond:FormattedAddressInPicklist>' + formatAddress + '</ond:FormattedAddressInPicklist>';
+        this._buildSoapFormatString = function (formatAddress, onPremise) {
+            if (onPremise === void 0) { onPremise = false; }
+            return "<" + (onPremise ? 'web' : 'ond') + ":FormattedAddressInPicklist>" + formatAddress + ("</" + (onPremise ? 'web' : 'ond') + ":FormattedAddressInPicklist>");
         };
         /*
-     * @param {Object} object.engineOptions - contains an object that has the engine options (see #_cleanEngineOptions)
+     * @param {Object} engineOptions - contains an object that has the engine options (see #_cleanEngineOptions)
          * @param {String} engineType
+     * @param {Boolean} onPremise
      *
          * @returns {String}
          */
-        this._buildSoapEngineString = function (object) {
-            var engineOptions = object.engineOptions;
-            var engineType = object.engineType;
+        this._buildSoapEngineString = function (_a) {
+            var engineOptions = _a.engineOptions, engineType = _a.engineType, onPremise = _a.onPremise;
             var result = this._cleanEngineOptions(engineOptions);
             var flatten = result.flatten;
             var intensity = result.intensity;
             var promptSet = result.promptSet;
             var threshold = result.threshold;
             var timeout = result.timeout;
-            var engineSoapString = '<ond:Engine' + ' ' +
-                'Flatten=' + '\'' + flatten + '\' ' +
-                'Intensity=' + '\'' + intensity + '\' ' +
-                'PromptSet=' + '\'' + promptSet + '\' ' +
-                'Threshold=' + '\'' + threshold + '\' ' +
-                'Timeout=' + '\'' + timeout + '\' ' +
-                '>' + engineType + '</ond:Engine>';
+            var engineSoapString = "<" + (onPremise ? 'web' : 'ond') + ":Engine" + ' ' +
+                ("Flatten='" + flatten + "' ") +
+                ("Intensity='" + intensity + "' ") +
+                ("PromptSet='" + promptSet + "' ") +
+                ("Threshold='" + threshold + "' ") +
+                ("Timeout='" + timeout + "'") +
+                '>' + engineType + ("</" + (onPremise ? 'web' : 'ond') + ":Engine>");
             return engineSoapString;
         };
         /*
      * @returns {String}
      */
-        this._buildSoapNamespaceSubString = function () {
+        this._buildSoapNamespaceSubString = function (onPremise) {
+            if (onPremise) {
+                return 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
+                    'xmlns:web="http://www.qas.com/web-2013-12"';
+            }
             return 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
                 'xmlns:ond="http://www.qas.com/OnDemand-2011-03"';
         };
         /*
+     * @param {Boolean} onPremise
      * @param {String} moniker
      *
          * @returns {String}
          */
-        this._buildSoapMonikerString = function (moniker) {
-            return '<ond:Moniker>' + moniker + '</ond:Moniker>';
+        this._buildSoapMonikerString = function (moniker, onPremise) {
+            return "<" + (onPremise ? 'web' : 'ond') + ":Moniker>" + moniker + "</" + (onPremise ? 'web' : 'ond') + ":Moniker>";
         },
             /*
+         * @param {Boolean} onPremise
          * @param {String} refinement
          *
              * @returns {String}
              */
-            this._buildSoapRefinementString = function (refinement) {
-                return '<ond:Refinement>' + refinement + '</ond:Refinement>';
+            this._buildSoapRefinementString = function (refinement, onPremise) {
+                return "<" + (onPremise ? 'web' : 'ond') + ":Refinement>" + refinement + "</" + (onPremise ? 'web' : 'ond') + ":Refinement>";
             };
         /*
      * @param {String} layoutType
+     * @param {Boolean} onPremise
      *
          * @returns {String}
          */
-        this._buildSoapLayoutString = function (layoutType) {
+        this._buildSoapLayoutString = function (layoutType, onPremise) {
             if (layoutType === void 0) { layoutType = 'AllElements'; }
-            return '<ond:Layout>' + layoutType + '</ond:Layout>';
+            return "<" + (onPremise ? 'web' : 'ond') + ":Layout>" + layoutType + "</" + (onPremise ? 'web' : 'ond') + ":Layout>";
         };
-        /* @param {String} addressQuery
+        /*
+     * @param {String} addressQuery
+     * @param {Boolean} onPremise
      *
          * @returns {String}
          */
-        this._buildSoapSearchString = function (addressQuery) {
-            return '<ond:Search>' + addressQuery + '</ond:Search>';
+        this._buildSoapSearchString = function (addressQuery, onPremise) {
+            if (onPremise === void 0) { onPremise = false; }
+            return "<" + (onPremise ? 'web' : 'ond') + ":Search>" + addressQuery + ("</" + (onPremise ? 'web' : 'ond') + ":Search>");
         };
         /* @param {String} promptSet
      *
          * @returns {String}
          */
-        this._buildSoapPromptSetString = function (promptSet) {
-            return '<ond:PromptSet>' + promptSet + '</ond:PromptSet>';
+        this._buildSoapPromptSetString = function (promptSet, onPremise) {
+            return "<" + (onPremise ? 'web' : 'ond') + ":PromptSet>" + promptSet + "</" + (onPremise ? 'web' : 'ond') + ":PromptSet>";
         };
-        /* @param {String} country
+        /*
+     * @param {String} country
+     * @param {Boolean} onPremise
      *
          * @returns {String}
          */
-        this._buildSoapCountryString = function (country) {
+        this._buildSoapCountryString = function (country, onPremise) {
+            if (onPremise) {
+                return '<web:Country>' + country + '</web:Country>';
+            }
             return '<ond:Country>' + country + '</ond:Country>';
         };
         /*
+         * @param {Boolean} onPremise
          * @param {String} dataMap
          *
          * @returns {String}
          */
-        this._buildSoapDataMapString = function (dataMap) {
-            return '<ond:DataMap>' + dataMap + '</ond:DataMap>';
+        this._buildSoapDataMapString = function (dataMap, onPremise) {
+            return "<" + (onPremise ? 'web' : 'ond') + ":DataMap>" + dataMap + "</" + (onPremise ? 'web' : 'ond') + ":DataMap>";
         };
         /*** Taken from X2JS ***/
         /**
@@ -1016,20 +1186,33 @@
         });
     }
     ;
-    var proWebHelper = new _proWebHelpers();
     var reversePhoneValidateHelper = new _phoneValidateHelper('reversePhoneAppend');
     var globalPhoneValidateHelper = new _phoneValidateHelper('globalPhone');
     var emailValidateHelper = new _emailValidateHelper();
     var globalIntuitiveHelper = new _globalIntuitiveHelpers();
+    var proWebHelper = new _proWebHelpers();
+    var proWebOnPremiseHelper = new _proWebHelpers('http://bosedqproxy.qas.com/pro-web', 'http://www.qas.com/web-2013-12');
     /**
-     * @module Email
+     * @module email
      */
     EDQ.email = {
         /**
          * Validates an email address
          * This module is a wrapper around the REST calls for Email Validateion
          * Additional documentation for the REST calls can be found here:
+         *
          * <br><br> {@link https://www.edq.com/documentation/apis/}
+         *
+         * @example @executable
+         * EDQ.email.emailValidate({
+         *  emailAddress: 'support@edq.com',
+         *  callback: function(data, error) {
+         *    console.log(JSON.stringify(data));
+         *  }
+         * });
+         *
+         * @name emailValidate
+         * @function
          *
          * @param {String} emailAddress
          * @param {Number} timeout
@@ -1041,7 +1224,7 @@
         emailValidate: emailValidateHelper.emailValidate.bind(emailValidateHelper)
     };
     /**
-     * @module Phone
+     * @module phone
      */
     EDQ.phone = {
         /**
@@ -1050,7 +1233,15 @@
          * Additional documentation for the REST calls can be found here:
          * <br><br> {@link https://www.edq.com/documentation/apis/}
          *
-         * @name ReversePhoneAppend
+         * @example @executable
+         * EDQ.phone.reversePhoneAppend({
+         *  phoneNumber: '+16171234567',
+         *  callback: function(data, error) {
+         *    console.log(JSON.stringify(data));
+         *  }
+         * });
+         *
+         * @name reversePhoneAppend
          * @function
          *
          * @param {String} phoneNumber
@@ -1065,7 +1256,15 @@
          * Additional documentation for the REST calls can be found here:
          * <br><br> {@link https://www.edq.com/documentation/apis/}
          *
-         * @name GlobalPhoneValidate
+         * @example @executable
+         * EDQ.phone.globalPhoneValidate({
+         *  phoneNumber: '+16171234567',
+         *  callback: function(data, error) {
+         *    console.log(JSON.stringify(data));
+         *  }
+         * });
+         *
+         * @name globalPhoneValidate
          * @function
          *
          * @param {String} phoneNumber
@@ -1093,7 +1292,7 @@
              *  query: '125 Summer Street',
              *  country: 'USA',
              *  callback: function(data, error) {
-             *    console.log(data);
+             *    console.log(JSON.stringify(data));
              *  }
              * });
              *
@@ -1119,9 +1318,9 @@
              *    var formatUrl = data.results[0].format;
              *
              *    EDQ.address.globalIntuitive.format({
-             *      formatUrl: formatUrl
+             *      formatUrl: formatUrl,
              *      callback: function(data, error) {
-             *        console.log(data);
+             *        console.log(JSON.stringify(data));
              *      }
              *    })
              *  }
@@ -1150,24 +1349,190 @@
             formatById: globalIntuitiveHelper.formatById.bind(globalIntuitiveHelper),
         },
         /**
-         * This module is a wrapper around the SOAP XML calls for ProWebOnDemand.
+         * This module is a wrapper around the SOAP XML calls for Pro Web (on premise).
+         * In addition to being able to call any method in EDQ.address.proWeb, e.g.
+         * EDQ.address.proWebOnPremise.doSearch, it can call methods specified below.
+         *
          * Additional documentation for the SOAP calls can be found here:
          *
          * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
          *
          * @module proWeb
+         * @borrows module:proWeb~doSearch as doSearch
+         * @borrows module:proWeb~doRefine as doRefine
+         * @borrows module:proWeb~doGetSystemInfo as doGetSystemInfo
+         * @borrows module:proWeb~doGetPromptSet as doGetPromptSet
+         * @borrows module:proWeb~doGetLicenseInfo as doGetLicenseInfo
+         * @borrows module:proWeb~doGetLayouts as doGetLayouts
+         * @borrows module:proWeb~doGetExampleAddresses as doGetExampleAddresses
+         * @borrows module:proWeb~doGetDataMapDetail as doGetDataMapDetail
+         * @borrows module:proWeb~doGetData as doGetData
+         * @borrows module:proWeb~doGetAddress as doGetAddress
+         * @borrows module:proWeb~doCanSearch as doCanSearch
          */
         proWeb: {
+            doSearch: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doSearch(args);
+            },
+            doRefine: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doRefine(args);
+            },
+            doGetSystemInfo: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetSystemInfo(args);
+            },
+            doGetPromptSet: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetPromptSet(args);
+            },
+            doGetLicenseInfo: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetLicenseInfo(args);
+            },
+            doGetLayouts: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetLayouts(args);
+            },
+            doGetExampleAddresses: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetExampleAddresses(args);
+            },
+            doGetDataMapDetail: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetDataMapDetail(args);
+            },
+            doGetData: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetData(args);
+            },
+            doGetAddress: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetAddress(args);
+            },
+            doCanSearch: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doCanSearch(args);
+            },
+            /**
+             * Gets the hash code unique to unlockCode and server instance. Currently unsupported.
+             *
+             * @example @executable
+             * EDQ.address.proWebOnPremise.doGetDataHashCode({
+             *  callback: function(data, error) {
+             *    console.log(JSON.stringify(data));
+             *  }
+             * });
+             *
+             * @name doGetDataHashCode
+             * @function
+             *
+             * @param {callback} args.callback
+             *
+             * @returns {XMLHttpRequest}
+             */
+            doGetDataHashCode: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetDataHashCode(args);
+            },
+            /**
+             * Unlocks DPV after encountering a 'seed' address
+             *
+             * @example @executable
+             * EDQ.address.proWebOnPremise.doUnlockDPV({
+             *  unlockCode: '',
+             *  callback: function(data, error) {
+             *    console.log(JSON.stringify(data));
+             *  }
+             * });
+             *
+             * @name doUnlockDPV
+             * @function
+             *
+             * @param {String} args.unlockCode
+             * @param {callback} args.callback
+             *
+             * @returns {XMLHttpRequest}
+             */
+            doUnlockDPV: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doUnlockDPV(args);
+            },
+            /**
+             * Used to determine the DPV status
+             *
+             * @example @executable
+             * EDQ.address.proWebOnPremise.doGetDPVStatus({
+             *  callback: function(data, error) {
+             *    console.log(JSON.stringify(data));
+             *  }
+             * });
+             *
+             * @name doGetDPVStatus
+             * @function
+             *
+             * @param {callback} args.callback
+             *
+             * @returns {XMLHttpRequest}
+             */
+            doGetDPVStatus: function (args) {
+                args['onPremise'] = true;
+                return proWebOnPremiseHelper.doGetDPVStatus(args);
+            },
+            /**
+             * Verify a batch of addresses using the verification engine
+             *
+             * @example @executable
+             * EDQ.address.proWebOnPremise.doBulkSearch({
+             *  country: 'USA',
+             *  engineOptions: {},
+             *  layout: '( QAS Standard Layout )',
+             *  searches: ['125 Summer Street, Boston MA', '53 State Street, Boston 02110'],
+             *  formattedAddressInPicklist: false,
+             *  callback: function(data, error) {
+             *    console.log(JSON.stringify(data));
+             *  }
+             * });
+             *
+             * @name doBulkSearch
+             * @function
+             *
+             * @param {String} country
+             * @param {String} engineOptions
+             * @param {String} engineType
+             * @param {String} layout
+             * @param {String} addressQuery
+             * @param {Boolean} formattedAddressInPicklist
+             * @param {callback} callback
+             *
+             * @returns {XMLHttpRequest}
+             */
+            doBulkSearch: function (args) {
+                args['onPremise'] = true;
+                args['engineType'] = 'Verification';
+                return proWebOnPremiseHelper.doBulkSearch(args);
+            }
+        },
+        /**
+         * This module is a wrapper around the SOAP XML calls for Pro Web On Demand
+         * Additional documentation for the SOAP calls can be found here:
+         *
+         * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
+         *
+         * @module proWebOnDemand
+         */
+        proWebOnDemand: {
             /**
              * Checks that the combination of data mapping, engine and layout are valid for searching.
              *
              * @example @executable
-             * EDQ.address.proWeb.doCanSearch({
+             * EDQ.address.proWebOnDemand.doCanSearch({
              *  country: 'USA',
              *  engineOptions: {},
              *  layout: 'EDQDemoLayout',
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(JSON.stringify(data));
              *  }
              * });
              *
@@ -1187,7 +1552,7 @@
              * Formats a picklist item to obtain a final, formatted address.
              *
              * @example @executable
-             * EDQ.address.proWeb.doSearch({
+             * EDQ.address.proWebOnDemand.doSearch({
              *  country: 'USA',
              *  engineOptions: {},
              *  engineType: 'Verification',
@@ -1202,7 +1567,7 @@
              *    moniker: data.Envelope.Body.QASearchResult.QAPicklist.FullPicklistMoniker,
              *    layout: 'EDQDemoLayout',
              *    callback: function(data, error) {
-             *      console.log(data.toSource());
+             *      console.log(JSON.stringify(data));
              *    }
              *   });
              *  }
@@ -1222,9 +1587,9 @@
              * Obtains a list of available data mappings
              *
              * @example @executable
-             * EDQ.address.proWeb.doGetData({
+             * EDQ.address.proWebOnDemand.doGetData({
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(JSON.stringify(data));
              *  }
              * });
              *
@@ -1237,11 +1602,12 @@
              */
             doGetData: proWebHelper.doGetData.bind(proWebHelper),
             /**
-             * NOTE: This does not function on the latest version of ProWeb
+             * NOTE: This only functions on the on premise version of ProWeb
              *
              * @example @executable
              * try {
-             *  EDQ.address.proWeb.doGetDataMapDetail({
+             *  EDQ.address.proWebOnDemand.doGetDataMapDetail({
+             *    dataMap: 'USA',
              *    callback: function(data, error) {
              *      // This function does not work
              *      console.log(data);
@@ -1264,11 +1630,11 @@
              * Returns fully formatted example addresses
              *
              * @example @executable
-             * EDQ.address.proWeb.doGetExampleAddresses({
+             * EDQ.address.proWebOnDemand.doGetExampleAddresses({
              *  country: 'USA',
              *  layout: 'AllElements',
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(JSON.stringify(data));
              *  }
              * });
              *
@@ -1286,10 +1652,10 @@
              * Obtains a list of layouts that have been configured within the configuration file.
              *
              * @example @executable
-             * EDQ.address.proWeb.doGetLayouts({
+             * EDQ.address.proWebOnDemand.doGetLayouts({
              *  country: 'USA',
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(JSON.stringify(data));
              *  }
              * });
              *
@@ -1307,7 +1673,7 @@
              *
              * @example @executable
              * try {
-             *  EDQ.address.proWeb.doGetLicenseInfo({
+             *  EDQ.address.proWebOnDemand.doGetLicenseInfo({
              *    callback: function(data, error) {
              *      // This function does not work
              *      console.log(data);
@@ -1329,13 +1695,13 @@
              * Returns prompt set information.
              *
              * @example @executable
-             * EDQ.address.proWeb.doGetPromptSet({
+             * EDQ.address.proWebOnDemand.doGetPromptSet({
              *  country: 'USA',
              *  engineOptions: {},
              *  engineType: 'Verification',
              *  promptSet: 'Default',
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(JSON.stringify(data));
              *    console.log(error);
              *  }
              * });
@@ -1356,9 +1722,9 @@
              * Returns information about the server
              *
              * @example @executable
-             * EDQ.address.proWeb.doGetSystemInfo({
+             * EDQ.address.proWebOnDemand.doGetSystemInfo({
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(JSON.stringify(data));
              *    console.log(error);
              *  }
              * });
@@ -1375,7 +1741,7 @@
              * Used to step into and refine a picklist result
              *
              * @example @executable
-             * EDQ.address.proWeb.doRefine({
+             * EDQ.address.proWebOnDemand.doRefine({
              *  country: 'USA',
              *  refineOptions: {},
              *  layout: 'EDQDemoLayout',
@@ -1383,7 +1749,7 @@
              *  refinement: '',
              *  formattedAddressInPicklist: false,
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(JSON.stringify(data));
              *    console.log(error);
              *  }
              * });
@@ -1405,7 +1771,7 @@
              * Submits an initial search to the server
              *
              * @example @executable
-             * EDQ.address.proWeb.doSearch({
+             * EDQ.address.proWebOnDemand.doSearch({
              *  country: 'USA',
              *  engineOptions: {},
              *  engineType: 'Verification',
@@ -1413,7 +1779,7 @@
              *  addressQuery: '125 Summer Street, Boston MA 02110',
              *  formattedAddressInPicklist: false,
              *  callback: function(data, error) {
-             *    console.log(data.toSource());
+             *    console.log(JSON.stringify(data));
              *    console.log(error);
              *  }
              * });

@@ -1521,17 +1521,17 @@
      * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
      *
      * @module proWeb
-     * @borrows module:proWeb~doSearch as doSearch
-     * @borrows module:proWeb~doRefine as doRefine
-     * @borrows module:proWeb~doGetSystemInfo as doGetSystemInfo
-     * @borrows module:proWeb~doGetPromptSet as doGetPromptSet
-     * @borrows module:proWeb~doGetLicenseInfo as doGetLicenseInfo
-     * @borrows module:proWeb~doGetLayouts as doGetLayouts
-     * @borrows module:proWeb~doGetExampleAddresses as doGetExampleAddresses
-     * @borrows module:proWeb~doGetDataMapDetail as doGetDataMapDetail
-     * @borrows module:proWeb~doGetData as doGetData
-     * @borrows module:proWeb~doGetAddress as doGetAddress
-     * @borrows module:proWeb~doCanSearch as doCanSearch
+     * @borrows module:proWebOnDemand~doSearch as doSearch
+     * @borrows module:proWebOnDemand~doRefine as doRefine
+     * @borrows module:proWebOnDemand~doGetSystemInfo as doGetSystemInfo
+     * @borrows module:proWebOnDemand~doGetPromptSet as doGetPromptSet
+     * @borrows module:proWebOnDemand~doGetLicenseInfo as doGetLicenseInfo
+     * @borrows module:proWebOnDemand~doGetLayouts as doGetLayouts
+     * @borrows module:proWebOnDemand~doGetExampleAddresses as doGetExampleAddresses
+     * @borrows module:proWebOnDemand~doGetDataMapDetail as doGetDataMapDetail
+     * @borrows module:proWebOnDemand~doGetData as doGetData
+     * @borrows module:proWebOnDemand~doGetAddress as doGetAddress
+     * @borrows module:proWebOnDemand~doCanSearch as doCanSearch
      */
     proWeb: {
 
@@ -1708,7 +1708,7 @@
        * Checks that the combination of data mapping, engine and layout are valid for searching.
        *
        * @example @executable
-       * EDQ.address.proWeb.doCanSearch({
+       * EDQ.address.proWebOnDemand.doCanSearch({
        *  country: 'USA',
        *  engineOptions: {},
        *  layout: 'EDQDemoLayout',
@@ -1734,7 +1734,7 @@
        * Formats a picklist item to obtain a final, formatted address.
        *
        * @example @executable
-       * EDQ.address.proWeb.doSearch({
+       * EDQ.address.proWebOnDemand.doSearch({
        *  country: 'USA',
        *  engineOptions: {},
        *  engineType: 'Verification',
@@ -1770,7 +1770,7 @@
        * Obtains a list of available data mappings
        *
        * @example @executable
-       * EDQ.address.proWeb.doGetData({
+       * EDQ.address.proWebOnDemand.doGetData({
        *  callback: function(data, error) {
        *    console.log(JSON.stringify(data));
        *  }
@@ -1790,7 +1790,7 @@
        *
        * @example @executable
        * try {
-       *  EDQ.address.proWeb.doGetDataMapDetail({
+       *  EDQ.address.proWebOnDemand.doGetDataMapDetail({
        *    dataMap: 'USA',
        *    callback: function(data, error) {
        *      // This function does not work
@@ -1815,7 +1815,7 @@
        * Returns fully formatted example addresses
        *
        * @example @executable
-       * EDQ.address.proWeb.doGetExampleAddresses({
+       * EDQ.address.proWebOnDemand.doGetExampleAddresses({
        *  country: 'USA',
        *  layout: 'AllElements',
        *  callback: function(data, error) {
@@ -1838,7 +1838,7 @@
        * Obtains a list of layouts that have been configured within the configuration file.
        *
        * @example @executable
-       * EDQ.address.proWeb.doGetLayouts({
+       * EDQ.address.proWebOnDemand.doGetLayouts({
        *  country: 'USA',
        *  callback: function(data, error) {
        *    console.log(JSON.stringify(data));
@@ -1860,7 +1860,7 @@
        *
        * @example @executable
        * try {
-       *  EDQ.address.proWeb.doGetLicenseInfo({
+       *  EDQ.address.proWebOnDemand.doGetLicenseInfo({
        *    callback: function(data, error) {
        *      // This function does not work
        *      console.log(data);
@@ -1883,7 +1883,7 @@
        * Returns prompt set information.
        *
        * @example @executable
-       * EDQ.address.proWeb.doGetPromptSet({
+       * EDQ.address.proWebOnDemand.doGetPromptSet({
        *  country: 'USA',
        *  engineOptions: {},
        *  engineType: 'Verification',
@@ -1909,9 +1909,9 @@
 
       /**
        * Returns information about the server
-       * 
+       *
        * @example @executable
-       * EDQ.address.proWeb.doGetSystemInfo({
+       * EDQ.address.proWebOnDemand.doGetSystemInfo({
        *  callback: function(data, error) {
        *    console.log(JSON.stringify(data));
        *    console.log(error);
@@ -1929,9 +1929,9 @@
 
       /**
        * Used to step into and refine a picklist result
-       * 
+       *
        * @example @executable
-       * EDQ.address.proWeb.doRefine({
+       * EDQ.address.proWebOnDemand.doRefine({
        *  country: 'USA',
        *  refineOptions: {},
        *  layout: 'EDQDemoLayout',
@@ -1962,7 +1962,7 @@
        * Submits an initial search to the server
        *
        * @example @executable
-       * EDQ.address.proWeb.doSearch({
+       * EDQ.address.proWebOnDemand.doSearch({
        *  country: 'USA',
        *  engineOptions: {},
        *  engineType: 'Verification',
