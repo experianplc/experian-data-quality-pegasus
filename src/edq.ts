@@ -16,20 +16,20 @@
    *
    *  @type {Object}
    */
-  const EDQ_CONFIG = window.EdqConfig || <EdqConfigObject> {};
+  let EDQ_CONFIG = window.EdqConfig || <EdqConfigObject> {};
 
-	const PRO_WEB_AUTH_TOKEN               = EDQ_CONFIG.PRO_WEB_AUTH_TOKEN || '46832a16-80c0-43d8-af8e-05b3dde5aaaf';
-  const PHONE_VALIDATE_PLUS_AUTH_TOKEN   = EDQ_CONFIG.PHONE_VALIDATE_PLUS_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
-  const GLOBAL_PHONE_VALIDATE_AUTH_TOKEN = EDQ_CONFIG.GLOBAL_PHONE_VALIDATE_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
-  const EMAIL_VALIDATE_AUTH_TOKEN        = EDQ_CONFIG.EMAIL_VALIDATE_AUTH_TOKEN || '1793360f-3d97-451a-81b8-d7e765c48894';
-  const GLOBAL_INTUITIVE_AUTH_TOKEN      = EDQ_CONFIG.GLOBAL_INTUITIVE_AUTH_TOKEN || '8c9faaa4-a5d2-4036-808d-11208a2e52d8';
+	let PRO_WEB_AUTH_TOKEN               = EDQ_CONFIG.PRO_WEB_AUTH_TOKEN;
+  let PHONE_VALIDATE_PLUS_AUTH_TOKEN   = EDQ_CONFIG.PHONE_VALIDATE_PLUS_AUTH_TOKEN;
+  let GLOBAL_PHONE_VALIDATE_AUTH_TOKEN = EDQ_CONFIG.GLOBAL_PHONE_VALIDATE_AUTH_TOKEN;
+  let EMAIL_VALIDATE_AUTH_TOKEN        = EDQ_CONFIG.EMAIL_VALIDATE_AUTH_TOKEN;
+  let GLOBAL_INTUITIVE_AUTH_TOKEN      = EDQ_CONFIG.GLOBAL_INTUITIVE_AUTH_TOKEN;
 
   /** Service for ProWebOnDemand endpoint. Do not change unless you have a proxy to use
    *
    * @name PRO_WEB_SERVICE_URL
    * @type {String}
    */
-	const PRO_WEB_SERVICE_URL       = EDQ_CONFIG.PRO_WEB_SERVICE_URL || 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx';
+	let PRO_WEB_SERVICE_URL         = EDQ_CONFIG.PRO_WEB_SERVICE_URL || 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx';
   const PHONE_VALIDATE_PLUS_URL   = 'https://api.experianmarketingservices.com/sync/queryresult/PhoneValidatePlus/1.0/';
   const GLOBAL_PHONE_VALIDATE_URL = 'https://api.experianmarketingservices.com/sync/queryresult/PhoneValidate/3.0/';
   const EMAIL_VALIDATE_URL        = 'https://api.experianmarketingservices.com/sync/queryresult/EmailValidate/1.0/';
@@ -43,7 +43,7 @@
   let EDQ = <EDQ>{};
   root.EDQ = EDQ;
 
-	function _proWebHelpers(
+  function _proWebHelpers(
     serviceUrl = 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx',
     soapActionUrlPrefix = 'http://www.qas.com/OnDemand-2011-03'
   ) {
@@ -638,10 +638,14 @@
      * @returns {undefined}
      */
     this.makeRequest = ((requestData, soapActionUrl, callback) => {
-      if (!serviceUrl) {
-        throw 'Missing PRO_WEB_SERVICE_URL.';
-      } else if (!PRO_WEB_AUTH_TOKEN) {
-        throw 'Missing PRO_WEB_AUTH_TOKEN';
+      if (!PRO_WEB_SERVICE_URL && !PRO_WEB_AUTH_TOKEN) {
+        if (!PRO_WEB_SERVICE_URL) {
+          throw 'Missing PRO_WEB_SERVICE_URL.';
+        }
+
+        if (!PRO_WEB_AUTH_TOKEN) {
+          throw 'Missing PRO_WEB_AUTH_TOKEN';
+        }
       }
 
       let xhr = new XMLHttpRequest();
@@ -665,7 +669,7 @@
         }
       };
 
-      xhr.open('POST', serviceUrl);
+      xhr.open('POST', PRO_WEB_SERVICE_URL);
       xhr.setRequestHeader('Auth-Token', PRO_WEB_AUTH_TOKEN);
       xhr.setRequestHeader('SOAPAction', soapActionUrl);
       xhr.setRequestHeader('Content-Type', 'text/xml');
@@ -1343,9 +1347,19 @@
   const emailValidateHelper        = new _emailValidateHelper();
   const globalIntuitiveHelper      = new _globalIntuitiveHelpers();
   const proWebHelper               = new _proWebHelpers();
-  const proWebOnPremiseHelper      = new _proWebHelpers('http://bosedqproxy.qas.com/pro-web', 'http://www.qas.com/web-2013-12');
+  const proWebOnPremiseHelper      = new _proWebHelpers(PRO_WEB_SERVICE_URL, 'http://www.qas.com/web-2013-12');
 
-  /** 
+  EDQ.reloadConfiguration = function() {
+    EDQ_CONFIG = window.EdqConfig;
+    PRO_WEB_AUTH_TOKEN               = EDQ_CONFIG.PRO_WEB_AUTH_TOKEN;
+    PHONE_VALIDATE_PLUS_AUTH_TOKEN   = EDQ_CONFIG.PHONE_VALIDATE_PLUS_AUTH_TOKEN;
+    GLOBAL_PHONE_VALIDATE_AUTH_TOKEN = EDQ_CONFIG.GLOBAL_PHONE_VALIDATE_AUTH_TOKEN;
+    EMAIL_VALIDATE_AUTH_TOKEN        = EDQ_CONFIG.EMAIL_VALIDATE_AUTH_TOKEN;
+    GLOBAL_INTUITIVE_AUTH_TOKEN      = EDQ_CONFIG.GLOBAL_INTUITIVE_AUTH_TOKEN;
+    PRO_WEB_SERVICE_URL              = EDQ_CONFIG.PRO_WEB_SERVICE_URL || 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx';
+  };
+
+  /**
    * @module email
    */
   EDQ.email = {

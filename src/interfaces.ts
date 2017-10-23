@@ -14,7 +14,8 @@ interface EdqConfigObject {
 interface EDQ {
   email: any,
   phone: object,
-  address: object
+  address: object,
+  reloadConfiguration?: any
 }
 
 interface ConfigObject {
