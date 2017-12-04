@@ -66,7 +66,7 @@
 		this.doCanSearch = function({onPremise, country, engineOptions, engineType, layout, callback}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoCanSearch`;
 			const xmlRequest = this.buildDoCanSearch({country, engineOptions, engineType, layout, onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -79,7 +79,7 @@
 		this.doGetAddress = function({layout, moniker, callback, onPremise}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetAddress`;
 			const xmlRequest = this.buildDoGetAddressMessage({layout, moniker, onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -106,7 +106,7 @@
 
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDataMapDetail`;
 			const xmlRequest = this.buildDoGetDataMapDetail({dataMap, onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -123,7 +123,7 @@
 
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDataHashCode`;
 			const xmlRequest = this.buildDoGetDataHashCode(onPremise);
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -140,7 +140,7 @@
 
 			const soapActionUrl = `${soapActionUrlPrefix}/DoUnlockDPV`;
 			const xmlRequest = this.buildDoUnlockDPV({unlockCode, onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
     };
 
     /*
@@ -156,7 +156,7 @@
 
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDPVStatus`;
 			const xmlRequest = this.buildDoGetDPVStatus({onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
     };
 
     /*
@@ -170,7 +170,7 @@
 		this.doGetExampleAddresses = function({onPremise, country, layout, callback}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetExampleAddresses`;
 			const xmlRequest = this.buildDoGetExampleAddressesMessage({country, layout, onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -200,7 +200,7 @@
         layout,
         formattedAddressInPicklist
       });
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     this.buildDoBulkSearch = function({searches, country, engineOptions, engineType, layout, onPremise}) {
@@ -231,7 +231,7 @@
 		this.doGetLayouts =  function({country, onPremise, callback}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetLayouts`;
 			const xmlRequest = this.buildDoGetLayoutsMessage({country, onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -247,7 +247,7 @@
 
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetLicenseInfo`;
 			const xmlRequest = this.buildDoGetLicenseInfoMessage({onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -263,7 +263,7 @@
 		this.doGetPromptSet = function({country, engineOptions, engineType, promptSet, callback, onPremise}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetPromptSet`;
 			const xmlRequest = this.buildDoGetPromptSetMessage({country, engineOptions, engineType, promptSet, onPremise});
-			return this.makeRequest(xmlRequest, soapActionUrl, callback);
+			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -275,7 +275,7 @@
     this.doGetSystemInfo = function({callback, onPremise}) {
 			const soapActionUrl = `${soapActionUrlPrefix}/DoGetSystemInfo`;
 			const xmlRequest = this.buildDoGetSystemInfoMessage(onPremise);
-			this.makeRequest(xmlRequest, soapActionUrl, callback);
+			this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
     /*
@@ -308,7 +308,7 @@
         callback
       });
 
-			this.makeRequest(xmlRequest, soapActionUrl, callback);
+			this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
 		/*
@@ -345,7 +345,7 @@
         callback
       });
 
-      return this.makeRequest(xmlRequest, soapActionUrl, callback);
+      return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
 
 		/*
@@ -639,7 +639,7 @@
      *
      * @returns {undefined}
      */
-    this.makeRequest = ((requestData, soapActionUrl, callback) => {
+    this.makeRequest = ((requestData, soapActionUrl, callback, onPremise = false) => {
       if (!PRO_WEB_SERVICE_URL() && !PRO_WEB_AUTH_TOKEN()) {
         if (!PRO_WEB_SERVICE_URL()) {
           throw 'Missing PRO_WEB_SERVICE_URL.';
@@ -671,8 +671,12 @@
         }
       };
 
-      xhr.open('POST', PRO_WEB_SERVICE_URL());
-      xhr.setRequestHeader('Auth-Token', PRO_WEB_AUTH_TOKEN());
+      xhr.open('POST', onPremise ? PRO_WEB_SERVICE_URL() : 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx');
+
+      if (!onPremise) {
+        xhr.setRequestHeader('Auth-Token', PRO_WEB_AUTH_TOKEN());
+      }
+
       xhr.setRequestHeader('SOAPAction', soapActionUrl);
       xhr.setRequestHeader('Content-Type', 'text/xml');
       xhr.send(requestData);
@@ -1529,17 +1533,17 @@
      * <br><br> {@link https://www.edq.com/documentation/apis/address-validate/address-validate-soap/}
      *
      * @module proWeb
-     * @borrows module:proWebOnDemand~doSearch as doSearch
-     * @borrows module:proWebOnDemand~doRefine as doRefine
-     * @borrows module:proWebOnDemand~doGetSystemInfo as doGetSystemInfo
-     * @borrows module:proWebOnDemand~doGetPromptSet as doGetPromptSet
-     * @borrows module:proWebOnDemand~doGetLicenseInfo as doGetLicenseInfo
-     * @borrows module:proWebOnDemand~doGetLayouts as doGetLayouts
-     * @borrows module:proWebOnDemand~doGetExampleAddresses as doGetExampleAddresses
-     * @borrows module:proWebOnDemand~doGetDataMapDetail as doGetDataMapDetail
-     * @borrows module:proWebOnDemand~doGetData as doGetData
-     * @borrows module:proWebOnDemand~doGetAddress as doGetAddress
-     * @borrows module:proWebOnDemand~doCanSearch as doCanSearch
+     * @borrows module:proWebOn~doSearch as doSearch
+     * @borrows module:proWebOn~doRefine as doRefine
+     * @borrows module:proWebOn~doGetSystemInfo as doGetSystemInfo
+     * @borrows module:proWebOn~doGetPromptSet as doGetPromptSet
+     * @borrows module:proWebOn~doGetLicenseInfo as doGetLicenseInfo
+     * @borrows module:proWebOn~doGetLayouts as doGetLayouts
+     * @borrows module:proWebOn~doGetExampleAddresses as doGetExampleAddresses
+     * @borrows module:proWebOn~doGetDataMapDetail as doGetDataMapDetail
+     * @borrows module:proWebOn~doGetData as doGetData
+     * @borrows module:proWebOn~doGetAddress as doGetAddress
+     * @borrows module:proWebOn~doCanSearch as doCanSearch
      */
     proWeb: {
 

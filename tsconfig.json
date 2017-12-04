@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "amd",
     "checkJs": true,
     "allowJs": true,
     "outDir": "./lib"
