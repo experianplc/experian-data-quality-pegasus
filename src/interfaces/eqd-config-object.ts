@@ -1,0 +1,8 @@
+interface EdqConfigObject {
+  PRO_WEB_AUTH_TOKEN?: string,
+  PHONE_VALIDATE_PLUS_AUTH_TOKEN: string,
+  GLOBAL_PHONE_VALIDATE_AUTH_TOKEN: string,
+  EMAIL_VALIDATE_AUTH_TOKEN: string,
+  GLOBAL_INTUITIVE_AUTH_TOKEN: string,
+  PRO_WEB_SERVICE_URL: string
+}

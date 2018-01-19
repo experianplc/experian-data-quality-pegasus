@@ -2,12 +2,15 @@
   "name": "edq",
   "version": "1.0.0",
   "scripts": {
-    "build": "./node_modules/.bin/babel src -d lib"
+    "build": "./node_modules/.bin/babel src -d lib",
+    "tsc": "tsc"
   },
   "devDependencies": {
     "babel-cli": "^6.0.0",
     "babel-preset-env": "^1.3.2",
     "qunitjs": "^2.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "typescript": "^2.6.2"
+  }
 }
