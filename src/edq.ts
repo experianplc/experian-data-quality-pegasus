@@ -25,6 +25,8 @@
   let GLOBAL_PHONE_VALIDATE_AUTH_TOKEN = function() { return EDQ_CONFIG().GLOBAL_PHONE_VALIDATE_AUTH_TOKEN; }
   let EMAIL_VALIDATE_AUTH_TOKEN        = function() { return EDQ_CONFIG().EMAIL_VALIDATE_AUTH_TOKEN; }
   let GLOBAL_INTUITIVE_AUTH_TOKEN      = function() { return EDQ_CONFIG().GLOBAL_INTUITIVE_AUTH_TOKEN; }
+  let SOAP_ACTION_URL                  = function() { return EDQ_CONFIG().SOAP_ACTION_URL; }
+  let PRO_WEB_TIMEOUT                  = function() { return EDQ_CONFIG().PRO_WEB_TIMEOUT; }
 
   /** Service for ProWebOnDemand endpoint. Do not change unless you have a proxy to use
    *
@@ -722,7 +724,7 @@
 		 * @returns {Number}
 		 */
 		this._cleanTimeout = function(timeout) {
-			return timeout || 300;
+			return PRO_WEB_TIMEOUT() || timeout || 300;
 		};
 
 		/*
@@ -769,11 +771,11 @@
 		this._buildSoapNamespaceSubString = function(onPremise) {
       if (onPremise) {
         return 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
-          'xmlns:web="http://www.qas.com/web-2013-12"'
+          `xmlns:web="${soapActionUrlPrefix}"`
       }
 
 			return 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
-				'xmlns:ond="http://www.qas.com/OnDemand-2011-03"';
+        `xmlns:ond="${soapActionUrlPrefix}"`;
 		};
 
 		/*
@@ -1353,7 +1355,7 @@
   const emailValidateHelper        = new _emailValidateHelper();
   const globalIntuitiveHelper      = new _globalIntuitiveHelpers();
   const proWebHelper               = new _proWebHelpers();
-  const proWebOnPremiseHelper      = new _proWebHelpers(PRO_WEB_SERVICE_URL(), 'http://www.qas.com/web-2013-12');
+  const proWebOnPremiseHelper      = new _proWebHelpers(PRO_WEB_SERVICE_URL(), SOAP_ACTION_URL());
 
   /**
    * @module email
