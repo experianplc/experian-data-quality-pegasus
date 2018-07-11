@@ -1,0 +1,32 @@
+{
+  "suites": "unit/**/*.js",
+  "filterErrorStack": true,
+
+  "capabilities": {
+    "acceptInsecureCerts": true
+  },
+
+  "environments": [
+    {
+      "browserName": "chrome",
+      "chromeOptions": {
+        "args": [
+          "headless",
+          "window-size=1280,960",
+          "disable-gpu"
+        ]
+
+      }
+    }
+  ],
+
+  "tunnelOptions": {
+    "drivers": [
+      {
+        "name": "chrome",
+        "version": "2.37"
+      }
+    ]
+  }
+}
+

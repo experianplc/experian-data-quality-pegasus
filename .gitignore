@@ -2,3 +2,4 @@ node_modules
 lib/interfaces/**/*
 jsdocplay
 documentation
+.sw*
