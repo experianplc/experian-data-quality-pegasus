@@ -1,3 +1,4 @@
+
 var addressFailCallback = function(data, error) {
   this.assert.equal(!Boolean(data) && error.status !== 200, true, "The failure condition is caught successfully");
   this.done();
