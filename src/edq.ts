@@ -25,7 +25,17 @@
   let GLOBAL_PHONE_VALIDATE_AUTH_TOKEN = function() { return EDQ_CONFIG().GLOBAL_PHONE_VALIDATE_AUTH_TOKEN; }
   let EMAIL_VALIDATE_AUTH_TOKEN        = function() { return EDQ_CONFIG().EMAIL_VALIDATE_AUTH_TOKEN; }
   let GLOBAL_INTUITIVE_AUTH_TOKEN      = function() { return EDQ_CONFIG().GLOBAL_INTUITIVE_AUTH_TOKEN; }
-  let SOAP_ACTION_URL                  = function() { return EDQ_CONFIG().SOAP_ACTION_URL; }
+  let SOAP_ACTION_URL                  = function(onPremise = null) {
+    if (onPremise) {
+      if (!EDQ_CONFIG().SOAP_ACTION_URL) {
+        throw 'SOAP_ACTION_URL missing';
+      }
+
+      return EDQ_CONFIG().SOAP_ACTION_URL
+    }
+
+    return 'http://www.qas.com/OnDemand-2011-03';
+  }
   let PRO_WEB_TIMEOUT                  = function() { return EDQ_CONFIG().PRO_WEB_TIMEOUT; }
 
   /** Service for ProWebOnDemand endpoint. Do not change unless you have a proxy to use
@@ -49,11 +59,7 @@
 
   function _proWebHelpers(
     serviceUrl = 'https://ws2.ondemand.qas.com/ProOnDemand/V3/ProOnDemandService.asmx',
-    soapActionUrlPrefix = 'http://www.qas.com/OnDemand-2011-03'
   ) {
-
-    this.serviceUrl = serviceUrl;
-    this.soapActionUrlPrefix = soapActionUrlPrefix;
 
     /*
      * @param {Boolean} onPremise
@@ -66,7 +72,7 @@
      * @returns {XMLHttpRequest}
      */
 		this.doCanSearch = function({onPremise, country, engineOptions, engineType, layout, callback}) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoCanSearch`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoCanSearch`;
 			const xmlRequest = this.buildDoCanSearch({country, engineOptions, engineType, layout, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -79,7 +85,7 @@
      * @returns {XMLHttpRequest}
      */
 		this.doGetAddress = function({layout, moniker, callback, onPremise}) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetAddress`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetAddress`;
 			const xmlRequest = this.buildDoGetAddressMessage({layout, moniker, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -89,8 +95,8 @@
      *
      * @returns {XMLHttpRequest}
      */
-		this.doGetData = function({callback}) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetData`;
+		this.doGetData = function({callback, onPremise}) {
+			const soapActionUrl = `${SOAP_ACTION_URL()}/DoGetData`;
 			const xmlRequest = this.buildDoGetDataMessage();
 			return this.makeRequest(xmlRequest, soapActionUrl, callback);
 		};
@@ -106,7 +112,7 @@
         throw "This SOAP method is not supported in this version of QAS Pro On Demand";
       }
 
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDataMapDetail`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetDataMapDetail`;
 			const xmlRequest = this.buildDoGetDataMapDetail({dataMap, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -123,7 +129,7 @@
         throw "This SOAP method is not supported in this version of QAS Pro On Demand";
       }
 
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDataHashCode`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetDataHashCode`;
 			const xmlRequest = this.buildDoGetDataHashCode(onPremise);
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -140,7 +146,7 @@
         throw "This SOAP method is not supported in this version of QAS Pro On Demand";
       }
 
-			const soapActionUrl = `${soapActionUrlPrefix}/DoUnlockDPV`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoUnlockDPV`;
 			const xmlRequest = this.buildDoUnlockDPV({unlockCode, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
     };
@@ -156,7 +162,7 @@
         throw "This SOAP method is not supported in this version of QAS Pro On Demand";
       }
 
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetDPVStatus`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetDPVStatus`;
 			const xmlRequest = this.buildDoGetDPVStatus({onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
     };
@@ -170,7 +176,7 @@
      * @returns {XMLHttpRequest}
      */
 		this.doGetExampleAddresses = function({onPremise, country, layout, callback}) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetExampleAddresses`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetExampleAddresses`;
 			const xmlRequest = this.buildDoGetExampleAddressesMessage({country, layout, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -192,7 +198,7 @@
       formattedAddressInPicklist,
       callback
     }) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoBulkSearch`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoBulkSearch`;
 			const xmlRequest = this.buildDoBulkSearch({
         searches,
         onPremise,
@@ -231,7 +237,7 @@
      * @returns {XMLHttpRequest}
      */
 		this.doGetLayouts =  function({country, onPremise, callback}) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetLayouts`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetLayouts`;
 			const xmlRequest = this.buildDoGetLayoutsMessage({country, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -247,7 +253,7 @@
         throw "This SOAP method is not supported in this version of QAS Pro On Demand";
       }
 
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetLicenseInfo`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetLicenseInfo`;
 			const xmlRequest = this.buildDoGetLicenseInfoMessage({onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -263,7 +269,7 @@
      * @returns {XMLHttpRequest}
      */
 		this.doGetPromptSet = function({country, engineOptions, engineType, promptSet, callback, onPremise}) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetPromptSet`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetPromptSet`;
 			const xmlRequest = this.buildDoGetPromptSetMessage({country, engineOptions, engineType, promptSet, onPremise});
 			return this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -275,7 +281,7 @@
      * @returns {XMLHttpRequest}
      */
     this.doGetSystemInfo = function({callback, onPremise}) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoGetSystemInfo`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoGetSystemInfo`;
 			const xmlRequest = this.buildDoGetSystemInfoMessage(onPremise);
 			this.makeRequest(xmlRequest, soapActionUrl, callback, onPremise);
 		};
@@ -299,7 +305,7 @@
       formattedAddressInPicklist,
       callback
     }) {
-			const soapActionUrl = `${soapActionUrlPrefix}/DoRefine`;
+			const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoRefine`;
 			const xmlRequest = this.buildDoRefineMessage({
         onPremise,
         refineOptions,
@@ -335,7 +341,7 @@
       formattedAddressInPicklist,
       callback
     }) {
-      const soapActionUrl = `${this.soapActionUrlPrefix}/DoSearch`;
+      const soapActionUrl = `${SOAP_ACTION_URL(onPremise)}/DoSearch`;
       const xmlRequest = this.buildDoSearchMessage({
         onPremise,
         country,
@@ -771,11 +777,11 @@
 		this._buildSoapNamespaceSubString = function(onPremise) {
       if (onPremise) {
         return 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
-          `xmlns:web="${soapActionUrlPrefix}"`
+          `xmlns:web="${SOAP_ACTION_URL(onPremise)}"`
       }
 
 			return 'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
-        `xmlns:ond="${soapActionUrlPrefix}"`;
+        `xmlns:ond="${SOAP_ACTION_URL(onPremise)}"`;
 		};
 
 		/*
@@ -1355,7 +1361,7 @@
   const emailValidateHelper        = new _emailValidateHelper();
   const globalIntuitiveHelper      = new _globalIntuitiveHelpers();
   const proWebHelper               = new _proWebHelpers();
-  const proWebOnPremiseHelper      = new _proWebHelpers(PRO_WEB_SERVICE_URL(), SOAP_ACTION_URL());
+  const proWebOnPremiseHelper      = new _proWebHelpers(PRO_WEB_SERVICE_URL());
 
   /**
    * @module email
